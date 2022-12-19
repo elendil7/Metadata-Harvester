@@ -2,6 +2,7 @@ import debug from 'debug';
 import { DISCORD_BOT_PREFIX } from '../utils/constants';
 import { Client, Partials, Collection, Options } from 'discord.js';
 import { getEvents, getCommands } from './utils/getFiles';
+import Command from './commands/register.commands';
 
 const LOG = debug('Metadata-Harvester:apps:bot:src:startBot.ts');
 
@@ -41,8 +42,8 @@ export const initiateClient = async () => {
 
 export class DiscordBot extends Client {
 	public prefix;
-	public events;
-	public commands;
+	public events: Collection<string, Event>;
+	public commands: Collection<string, Command>;
 
 	constructor(args: any) {
 		super(args);
@@ -81,6 +82,8 @@ export class DiscordBot extends Client {
 				}
 				// add the event object to the collection of events, to be accessed anytime
 				this.events.set(eventName, curEvent);
+
+				// console.log(this.events);
 			}
 			LOG('Events loaded.');
 		} else {
@@ -103,8 +106,14 @@ export class DiscordBot extends Client {
 					const curCommand = (
 						await import(`./commands/${cGroup}/${vCmds[i]}`)
 					)?.default;
+
 					// add command name & full command to "commands" field of type "collection"
-					this.commands.set(vCmds[i], curCommand);
+					this.commands.set(vCmds[i], new curCommand());
+
+					/* 					console.log(
+						`Group: ${cGroup}, Name: ${vCmds[i]}, Command`,
+						curCommand
+					); */
 				}
 			}
 
