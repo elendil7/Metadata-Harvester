@@ -1,6 +1,6 @@
 require('dotenv').config();
 import debug from 'debug';
-import { Symbols } from './src/utils/constants';
+import { DISCORD_BOT_TOKEN, Symbols } from './src/utils/constants';
 import { initiateClient } from './src/discord/startDiscordBot';
 
 const LOG = debug('Metadata-Harvester:apps:bot:index.ts');
@@ -15,14 +15,17 @@ const execute = async () => {
         - API (server)
     */
 
-	// start discord bot
-	const bot = initiateClient();
+	// initiate instance of DiscordBot
+	const DiscordBot = await initiateClient();
 
 	// resister events
-	await bot.loadEvents();
+	await DiscordBot.loadEvents();
 
 	// register commands
-	await bot.loadCommands();
+	await DiscordBot.loadCommands();
+
+	// start discord bot (with partials, intents, and cache)
+	await DiscordBot.login(DISCORD_BOT_TOKEN);
 
 	LOG(`${Symbols.SUCCESS} Bot successfully loaded!`);
 };
