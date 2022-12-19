@@ -93,11 +93,24 @@ export class DiscordBot extends Client {
 		// get collection of commandgroups & commands
 		const commandGroups = await getCommands();
 
-				const command = new CommandHandler(this, commandName);
-				this.commands.set(commandName, command);
+		// if any commands exist
+		if (commandGroups) {
+			// iterate through command groups
+			for (const [cGroup, vCmds] of commandGroups) {
+				// iterate through all commands in current group
+				for (let i = 0; i < vCmds.length; ++i) {
+					// import current command in group
+					const curCommand = (
+						await import(`./commands/${cGroup}/${vCmds[i]}`)
+					)?.default;
+					// add command name & full command to "commands" field of type "collection"
+					this.commands.set(vCmds[i], curCommand);
+				}
 			}
+
+			LOG('Commands loaded.');
 		} else {
-			console.error('No commands found.');
+			LOG('No commands found.');
 		}
 	}
 
