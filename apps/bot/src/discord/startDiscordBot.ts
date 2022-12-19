@@ -1,16 +1,14 @@
 import debug from 'debug';
-import { DISCORD_BOT_TOKEN, DISCORD_BOT_PREFIX } from '../utils/constants';
-import { Client, Partials, Events, Collection } from 'discord.js';
+import { DISCORD_BOT_PREFIX } from '../utils/constants';
+import { Client, Partials, Collection, Options } from 'discord.js';
 import { getEvents, getCommands } from './utils/getFiles';
-import EventHandler from './events/register.events';
-import CommandHandler from './commands/register.commands';
 
 const LOG = debug('Metadata-Harvester:apps:bot:src:startBot.ts');
 
-export const initiateClient = () => {
-	// create new instance of Client and login to Discord using bot token
+export const initiateClient = async () => {
+	// create new instance of DiscordBot (extension of fundamental Client class)
 	LOG('Starting Discord bot...');
-	const bot = new Bot({
+	const discordBot: DiscordBot = new DiscordBot({
 		partials: [
 			Partials.Channel,
 			Partials.User,
@@ -28,29 +26,35 @@ export const initiateClient = () => {
 			'GuildMessageReactions',
 			'GuildEmojisAndStickers',
 		],
+		makeCache: Options.cacheWithLimits({
+			...Options.DefaultMakeCacheSettings,
+			ReactionManager: 200,
+			GuildMemberManager: {
+				maxSize: 200,
+				// keepOverLimit: (member) => member.id === client.user!.id,
+			},
+		}),
 	});
 
-	bot.start(DISCORD_BOT_TOKEN);
-	LOG('Logged in to Discord.');
-
-	return bot;
+	return discordBot;
 };
 
-export class Bot extends Client {
+export class DiscordBot extends Client {
 	public prefix;
 	public events;
 	public commands;
 
 	constructor(args: any) {
 		super(args);
-
 		this.prefix = DISCORD_BOT_PREFIX;
 		this.events = new Collection();
 		this.commands = new Collection();
 	}
 
-	async start(token: string) {
+	public async start(token: string) {
+		// login to Discord using bot token
 		await super.login(token);
+		LOG('Logged in to Discord.');
 	}
 
 	public async loadEvents() {
