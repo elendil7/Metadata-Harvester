@@ -1,17 +1,30 @@
-import EventHandler from './register.events';
-import { DISCORD_BOT_PREFIX } from '../../utils/constants';
-import { Message } from 'discord.js';
+import { DISCORD_BOT_PREFIX, DISCORD_OWNER_ID } from '../../utils/constants';
+import { Message, Client } from 'discord.js';
+import { DiscordBot } from '../startDiscordBot';
 
-export default class MessageCreate extends EventHandler {
-	async run(message: Message) {
-		const content = message.content;
-		// check if prefix correct
-		if (message.content[0] === DISCORD_BOT_PREFIX) return;
-		// check if command is correct
-		const command = this.client.getCommand(
-			message.content.replace(this.client.prefix, '')
-		);
+export default {
+	name: 'messageCreate',
+	once: false,
 
-		if (command) command.run(message);
-	}
-}
+	async run(message: Message, client: DiscordBot) {
+		// ignore DMs
+		if (!message.guild) return;
+		// ignore other bots
+		if (message.author.bot) return;
+		// ignore if prefix not correct
+		if (message.content[0] !== DISCORD_BOT_PREFIX) return;
+
+		// get supposed command (message content)
+		const command = message.content.replace(DISCORD_BOT_PREFIX, '');
+		// get command arguments by each indefinite spans of whitespace, then filter empty values out
+		const args = command.split(/ +/).filter((v) => v !== '');
+
+		// only allow owner to run following commands
+		if (message.author.id === DISCORD_OWNER_ID) {
+			// message.reply({ content: `Hello ${message.author.tag}!` });
+
+			// TODO run the specified command
+			const commands = client.commands;
+		}
+	},
+};
