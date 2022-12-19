@@ -1,12 +1,40 @@
 import debug from 'debug';
+import Command from '../register.commands';
 import { EmbedBuilder } from '@discordjs/builders';
+import { Message, Client, PermissionFlagsBits } from 'discord.js';
 
 const LOG = debug(
 	'Metadata-Harvester:apps:bot:src:commands:misc:calculator.ts'
 );
 
-export default {
-	async evalTwoNumbers(
+export default class Calculator extends Command {
+	constructor() {
+		super();
+		this.name = 'calculator';
+		this.aliases = ['calculator', 'calculate', 'calc', 'derive'];
+		this.group = '';
+		this.permissions = [];
+		this.description = 'Performs mathematical operations on input numbers';
+		this.emoji = '🔢';
+		this.run = this.run;
+	}
+
+	public async run(client: Client, message: Message, args: string[]) {
+		console.log(args);
+
+		if (args[1] === 'eval') {
+			const output = await this.evalExpression(args[2]);
+			message.reply({ content: output });
+		}
+	}
+
+	private async evalExpression(expression: string) {
+		return expression
+			? `${expression} = ${eval(expression)}`
+			: `Invalid expression`;
+	}
+
+	private async evalTwoNumbers(
 		a: number,
 		b: number,
 		operator: string,
@@ -37,9 +65,5 @@ export default {
 		} catch (e) {
 			return `\nError encountered: ${String(e).split('\n')[0]}\n`;
 		}
-	},
-
-	async evalExpression(expression: string) {
-		return `${expression} = ${eval(expression)}`;
-	},
-};
+	}
+}
