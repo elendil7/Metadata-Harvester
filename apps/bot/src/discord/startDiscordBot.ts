@@ -59,43 +59,39 @@ export class DiscordBot extends Client {
 
 	public async loadEvents() {
 		// get all file names of events from imported function
-		const events = getEvents();
-		console.log(events);
+		const eventNames = await getEvents();
 		// if event file names were fetched
-		if (events) {
+		if (eventNames) {
 			// loop through event file names
-			for (let i = 0; i < events.length; ++i) {
+			for (let i = 0; i < eventNames.length; ++i) {
 				// get event name
-				const eventName = events[i];
-
-				// unsure
-				const EventHandler = (
-					await import(`${__dirname}/events/${eventName}`)
-				).default;
-
-				// initiate instance (object) of child EventHandler class with event name
-				const event = new EventHandler(this, eventName);
-				// start listening for changes
-				event.startListener();
+				const eventName = eventNames[i];
+				const curEvent = (await import(`./events/${eventName}`))
+					?.default;
+				if (curEvent.once) {
+					// if even only requires to be triggered once
+					this.once(curEvent.name, (...args) =>
+						curEvent.run(...args, this)
+					);
+				} else {
+					// otherwise expect event to be triggered multiple times
+					this.on(curEvent.name, (...args) =>
+						curEvent.run(...args, this)
+					);
+				}
 				// add the event object to the collection of events, to be accessed anytime
-				this.events.set(eventName, event);
+				this.events.set(eventName, curEvent);
 			}
+			LOG('Events loaded.');
 		} else {
 			// if no events were fetched, send error message
-			console.error('No events found.');
+			LOG('No events found.');
 		}
 	}
 
 	public async loadCommands() {
-		const commands = getCommands();
-		console.log(commands);
-		if (commands) {
-			for (let i = 0; i < commands.length; ++i) {
-				const commandName = commands[i];
-
-				const CommandHandler = (
-					await import(`${__dirname}/commands/${commandName}`)
-				).default;
+		// get collection of commandgroups & commands
+		const commandGroups = await getCommands();
 
 				const command = new CommandHandler(this, commandName);
 				this.commands.set(commandName, command);
