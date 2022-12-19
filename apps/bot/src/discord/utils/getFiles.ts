@@ -34,10 +34,9 @@ export const getCommands = async () => {
 		// add each command (file) (string in array) to its resepctive commandGroup (directory) (string)
 		// example of commandGroups collection: Collection {commandGroup: [command1,command2,command3]}
 		subDirectories.forEach((dirName) => {
-			const commandsInDir = readdirSync(
-				`${path}/${dirName}`,
-				'utf-8'
-			).filter((file) => file.endsWith('.ts'));
+			const commandsInDir = readdirSync(`${path}/${dirName}`, 'utf-8')
+				.filter((file) => file.endsWith('.ts'))
+				.map((file) => file.split('.ts')[0]);
 			commandGroups.set(dirName, commandsInDir);
 		});
 
