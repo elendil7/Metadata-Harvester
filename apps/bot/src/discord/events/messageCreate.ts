@@ -1,6 +1,7 @@
 import { DISCORD_BOT_PREFIX, DISCORD_OWNER_ID } from '../../utils/constants';
-import { Message, Client } from 'discord.js';
+import { Message, Client, Collection } from 'discord.js';
 import { DiscordBot } from '../startDiscordBot';
+import Command from '../commands/register.commands';
 
 export default {
 	name: 'messageCreate',
@@ -23,8 +24,16 @@ export default {
 		if (message.author.id === DISCORD_OWNER_ID) {
 			// message.reply({ content: `Hello ${message.author.tag}!` });
 
-			// TODO run the specified command
+			// if message content includes command name, execute the "run" method on that command
+			for (const [cName, cObj] of client.commands) {
+				// console.log(cName, cObj);
+
+				if (cObj.aliases.includes(args[0])) {
+					cObj.run(client, message, args);
+				}
+			}
 			const commands = client.commands;
+			// console.log(commands);
 		}
 	},
 };
