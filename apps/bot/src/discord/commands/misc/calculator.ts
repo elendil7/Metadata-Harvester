@@ -1,12 +1,12 @@
 import debug from 'debug';
-import CommandHandler from '../register.commands';
+import { EmbedBuilder } from '@discordjs/builders';
 
 const LOG = debug(
 	'Metadata-Harvester:apps:bot:src:commands:misc:calculator.ts'
 );
 
-export class Calculator extends CommandHandler {
-	evalTwoNumbers(
+export default {
+	async evalTwoNumbers(
 		a: number,
 		b: number,
 		operator: string,
@@ -37,9 +37,9 @@ export class Calculator extends CommandHandler {
 		} catch (e) {
 			return `\nError encountered: ${String(e).split('\n')[0]}\n`;
 		}
-	}
+	},
 
-	evalExpression(expression: string) {
+	async evalExpression(expression: string) {
 		return `${expression} = ${eval(expression)}`;
-	}
-}
+	},
+};

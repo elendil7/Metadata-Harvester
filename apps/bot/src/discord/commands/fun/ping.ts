@@ -1,7 +1,5 @@
-import CommandHandler from '../register.commands';
-
-export default class Ping extends CommandHandler {
+export default {
 	async run(message: any) {
 		message.reply('pong!');
-	}
-}
+	},
+};
