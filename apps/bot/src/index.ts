@@ -6,7 +6,8 @@ import { initiateClient } from './discord/startDiscordBot';
 const LOG = debug('Metadata-Harvester:apps:bot:index.ts');
 
 const execute = async () => {
-	LOG(`${Symbols.LOADING} Loading bot components sequentially...`);
+	LOG(`<<<${new Date().toUTCString()}>>>`);
+	LOG(`${Symbols.LOADING} Loading program components sequentially...`);
 
 	// * Full discord bot initialization
 	/* 
@@ -25,9 +26,9 @@ const execute = async () => {
 	await DiscordBot.loadCommands();
 
 	// start discord bot (with partials, intents, and cache)
-	await DiscordBot.login(DISCORD_BOT_TOKEN);
+	await DiscordBot.start(DISCORD_BOT_TOKEN);
 
-	LOG(`${Symbols.SUCCESS} Bot successfully loaded!`);
+	LOG(`${Symbols.SUCCESS} Program successfully loaded!`);
 };
 
 execute();
