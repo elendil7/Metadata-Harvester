@@ -2,9 +2,10 @@
 	"name": "metadata-harvester",
 	"version": "1.0.0",
 	"description": "A discord bot with various functionalities.",
-	"main": "./index.ts",
+	"main": "./src/index.ts",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"build": "tsc",
+		"dev": "nodemon src/index.ts"
 	},
 	"author": "Aragorn Elessar",
 	"license": "ISC",
