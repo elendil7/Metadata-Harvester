@@ -1,7 +1,7 @@
 require('dotenv').config();
 import debug from 'debug';
-import { DISCORD_BOT_TOKEN, Symbols } from './src/utils/constants';
-import { initiateClient } from './src/discord/startDiscordBot';
+import { DISCORD_BOT_TOKEN, Symbols } from './utils/constants';
+import { initiateClient } from './discord/startDiscordBot';
 
 const LOG = debug('Metadata-Harvester:apps:bot:index.ts');
 
