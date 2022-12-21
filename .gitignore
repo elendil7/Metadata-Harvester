@@ -10,3 +10,6 @@ tempCodeRunnerFile.js
 other
 package-lock.json
 *.tmp
+
+# locally stored data
+data
