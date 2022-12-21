@@ -5,7 +5,7 @@
 	"main": "./src/index.ts",
 	"scripts": {
 		"build": "tsc",
-		"dev": "nodemon src/index.ts --watch src"
+		"dev": "nodemon src/index.ts --watch src --ignore data/"
 	},
 	"author": "Aragorn Elessar",
 	"license": "ISC",
@@ -17,6 +17,7 @@
 		"debug": "^4.3.4",
 		"discord.js": "^14.7.1",
 		"dotenv": "^16.0.3",
+		"puppeteer": "^19.4.1",
 		"ts-node": "^10.9.1",
 		"undici": "^5.14.0"
 	}
