@@ -1,13 +1,12 @@
 import { DISCORD_BOT_PREFIX, DISCORD_OWNER_ID } from '../../utils/constants';
-import { Message, Client, Collection } from 'discord.js';
+import { Message, Collection } from 'discord.js';
 import { DiscordBot } from '../startDiscordBot';
-import Command from '../commands/register.commands';
 
 export default {
 	name: 'messageCreate',
 	once: false,
 
-	async run(message: Message, client: DiscordBot) {
+	async run(client: DiscordBot, message: Message) {
 		// ignore DMs
 		if (!message.guild) return;
 		// ignore other bots
