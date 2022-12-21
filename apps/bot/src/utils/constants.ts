@@ -52,11 +52,18 @@ export enum Colour_Codes {
 // Symbols
 export enum Symbols {
 	SUCCESS = '✔️',
+	SUCCESS_VARIATION = '✅',
 	FAILURE = `❌`,
 	LOADING = `⌛`,
 	BUG = '🐛',
 	BOAR = '🐗',
 	DUCK = '🦆',
+	STAR = '⭐',
+	LANGUAGE = '🔤',
+	USER = '👤',
+	BOT = '🤖',
+	WEIGHTLIFTING = '🏋️',
+	CALENDAR = '📅',
 }
 
 // Time values
