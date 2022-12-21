@@ -72,12 +72,12 @@ export class DiscordBot extends Client {
 				if (curEvent.once) {
 					// if even only requires to be triggered once
 					this.once(curEvent.name, (...args) =>
-						curEvent.run(...args, this)
+						curEvent.run(this, ...args)
 					);
 				} else {
 					// otherwise expect event to be triggered multiple times
 					this.on(curEvent.name, (...args) =>
-						curEvent.run(...args, this)
+						curEvent.run(this, ...args)
 					);
 				}
 				// add the event object to the collection of events, to be accessed anytime
