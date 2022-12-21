@@ -2,6 +2,9 @@ import debug from 'debug';
 import Command from '../register.commands';
 import { EmbedBuilder } from '@discordjs/builders';
 import { Message, Client, PermissionFlagsBits } from 'discord.js';
+import { DiscordBot } from '../../startDiscordBot';
+import errorConstructor from '../../utils/embeds/errors';
+import invalidCommandConstructor from '../../utils/embeds/invalidCommand';
 
 const LOG = debug(
 	'Metadata-Harvester:apps:bot:src:commands:misc:calculator.ts'
@@ -19,16 +22,27 @@ export default class Calculator extends Command {
 		this.run = this.run;
 	}
 
-	public async run(client: Client, message: Message, args: string[]) {
-		console.log(args);
+	public async run(client: DiscordBot, message: Message, args: string[]) {
+		try {
+			// get which command user wants to execute
+			const choice = args[1];
+			// get expression from args (everything after the command)
+			const expression = args.slice(2).join('');
 
-		if (args[1] === 'eval') {
-			const output = await this.evalExpression(args[2]);
-			message.reply({ content: output });
+			switch (choice) {
+				case 'eval':
+					const output = await this.evalExpression(expression);
+					message.reply({ content: output });
+					break;
+				default:
+					invalidCommandConstructor(client, message, args, this);
+			}
+		} catch (e: any) {
+			errorConstructor(client, message, e);
 		}
 	}
 
-	private async evalExpression(expression: string) {
+	private async evalExpression(expression: string): Promise<string> {
 		return expression
 			? `${expression} = ${eval(expression)}`
 			: `Invalid expression`;
@@ -40,7 +54,7 @@ export default class Calculator extends Command {
 		operator: string,
 		applyRandomOperation?: boolean,
 		randomNumberMax?: number
-	) {
+	): Promise<string> {
 		try {
 			LOG('Performing calculation');
 			const initialRes = eval(`${a}${operator}${b}`);
