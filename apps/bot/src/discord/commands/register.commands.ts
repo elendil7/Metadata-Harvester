@@ -18,5 +18,5 @@ export default class Command {
 		this.run = this.run;
 	}
 
-	public async run(client: Client, ...args: any[]) {}
+	public async run(client: Client, ...args: any[]): Promise<any> {}
 }
