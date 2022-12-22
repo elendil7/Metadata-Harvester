@@ -1,9 +1,9 @@
 require('dotenv').config();
-import debug from 'debug';
 import { DISCORD_BOT_TOKEN, Symbols } from './utils/constants';
-import { initiateClient } from './discord/startDiscordBot';
+import initiateClient from './discord/startDiscordBot';
 
-const LOG = debug('Metadata-Harvester:apps:bot:index.ts');
+import debugPath from './utils/debugPath';
+const LOG = debugPath(__filename);
 
 const execute = async () => {
 	LOG(`<<<${new Date().toUTCString()}>>>`);
@@ -17,16 +17,27 @@ const execute = async () => {
     */
 
 	// initiate instance of DiscordBot
-	const DiscordBot = await initiateClient();
+	const discordBot = await initiateClient();
+	// quit if no discord bot found, quit
+	if (!discordBot) {
+		LOG('Failed to load discord bot');
+		return;
+	}
 
-	// resister events
-	await DiscordBot.loadEvents();
+	// load events
+	await discordBot.loadEvents('events');
 
-	// register commands
-	await DiscordBot.loadCommands();
+	// load normal commands
+	await discordBot.loadCommands('commands');
+
+	// load slash commands
+	await discordBot.loadCommands('slashcommands');
+
+	// register new/updated slash commands using Discord REST API (if config option set to true)
+	await discordBot.registerSlashCommands();
 
 	// start discord bot (with partials, intents, and cache)
-	await DiscordBot.start(DISCORD_BOT_TOKEN);
+	await discordBot.start(DISCORD_BOT_TOKEN);
 
 	LOG(`${Symbols.SUCCESS} Program successfully loaded!`);
 };
