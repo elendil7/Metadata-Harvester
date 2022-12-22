@@ -1,13 +1,16 @@
-import { DiscordBot } from '../startDiscordBot';
-import debug from 'debug';
+import DiscordBot from '../structures/client';
+import debugPath from '../../utils/debugPath';
+const LOG = debugPath(__filename);
 
 export default {
-	name: 'messageCreate',
+	name: 'ready',
 	once: true,
 
 	async run(client: DiscordBot, args: any[]) {
-		debug('Metadata-Harvester:apps:bot:src:discord:events:ready.ts')(
-			`Logged in as ${client.user!.tag}`
-		);
+		try {
+			LOG(`Logged in as ${client.user!.tag}`);
+		} catch (e) {
+			LOG(e);
+		}
 	},
 };
