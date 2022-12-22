@@ -49,10 +49,8 @@ export default class DiscordBot extends Client {
 
 	public async registerSlashCommands(): Promise<void> {
 		try {
-			// get array of slash commands
-			const slashCmds = this.slashCommands.map((v) => v.data);
-
-			await registerSlashCommands(slashCmds);
+			// get array of slash commands, pass into registerSlashCommands method
+			await registerSlashCommands(this.slashCommands.map((v) => v.data));
 
 			LOG('Registered new slash commands.');
 		} catch (e) {
