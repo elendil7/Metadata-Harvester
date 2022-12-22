@@ -1,13 +1,27 @@
+import { CommandInteraction, Message } from 'discord.js';
 import { getEnv } from './getEnv';
 
 // * For discord bot
+// main
 export const DISCORD_BOT_TOKEN = getEnv('DISCORD_BOT_TOKEN');
 export const DISCORD_BOT_ID = getEnv('DISCORD_BOT_ID');
 export const DISCORD_BOT_PREFIX = getEnv('DISCORD_BOT_PREFIX');
 export const DISCORD_OWNER_ID = getEnv('DISCORD_OWNER_ID');
+// register slash commands
 export const DISCORD_GUILD_ID = getEnv('DISCORD_GUILD_ID');
+export const REGISTER_GUILD_SLASH_COMMANDS = getEnv(
+	'REGISTER_GUILD_SLASH_COMMANDS'
+);
+export const REGISTER_GLOBAL_SLASH_COMMANDS = getEnv(
+	'REGISTER_GLOBAL_SLASH_COMMANDS'
+);
 
 // * For database
+
+// * Typescript
+// Custom types
+export type numberORstring = number | string;
+export type messageORinteraction = CommandInteraction | Message; // for passing either message/interaction into embed constructor
 
 // * Miscellaneous
 // Colours
@@ -64,6 +78,7 @@ export enum Symbols {
 	BOT = '🤖',
 	WEIGHTLIFTING = '🏋️',
 	CALENDAR = '📅',
+	TABLE_TENNIS = '🏓',
 }
 
 // Time values
@@ -78,5 +93,21 @@ export enum Convert_MS {
 	YEARS = 31536000000,
 }
 
-// Custom types
-export type numberstring = number | string;
+// Image sizes available for serving by Discord
+export enum Images_Sizes {
+	MICROSCROPIC = '8',
+	MINISCULE = '16',
+	TINY = '32',
+	SMALL = '64',
+	MEDIUM = '128',
+	LARGE = '256',
+	XLARGE = '512',
+	XXLARGE = '1024',
+	XXXLARGE = '2048',
+	XXXXLARGE = '4096',
+}
+
+// Links to external GIFs stored remotely in CDNs or simply websites
+export enum Gif_Links {
+	ANIMATED_CHECKMARK = 'https://cdn.discordapp.com/emojis/723073203307806761.gif?v=1',
+}
