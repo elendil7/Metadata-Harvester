@@ -1,14 +1,10 @@
-import debug from 'debug';
-import Command from '../register.commands';
-import { EmbedBuilder } from '@discordjs/builders';
-import { Message, Client, PermissionFlagsBits } from 'discord.js';
-import { DiscordBot } from '../../startDiscordBot';
-import errorConstructor from '../../utils/embeds/errors';
-import invalidCommandConstructor from '../../utils/embeds/invalidCommand';
-
-const LOG = debug(
-	'Metadata-Harvester:apps:bot:src:commands:misc:calculator.ts'
-);
+import Command from '../../structures/command';
+import { Message } from 'discord.js';
+import DiscordBot from '../../structures/client';
+import errorConstructor from '../../utils/embeds/reusable/errors';
+import invalidCommandConstructor from '../../utils/embeds/reusable/invalidCommand';
+import debugPath from '../../../utils/debugPath';
+const LOG = debugPath(__filename);
 
 export default class Calculator extends Command {
 	constructor() {

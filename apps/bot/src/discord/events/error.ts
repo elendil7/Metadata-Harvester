@@ -1,15 +1,17 @@
-import { DiscordBot } from '../startDiscordBot';
-import debug from 'debug';
+import DiscordBot from '../structures/client';
 import { Symbols } from '../../utils/constants';
+import debugPath from '../../utils/debugPath';
+const LOG = debugPath(__filename);
 
 export default {
 	name: 'error',
 	once: false,
 
 	async run(client: DiscordBot, error: Error) {
-		const LOG = debug(
-			'Metadata-Harvester:apps:bot:src:discord:events:error.ts'
-		);
-		LOG(`${Symbols.FAILURE} WebSocket Connection Error: `, error);
+		try {
+			LOG(`${Symbols.FAILURE} WebSocket Connection Error: `, error);
+		} catch (e) {
+			LOG(e);
+		}
 	},
 };
