@@ -1,15 +1,56 @@
-import Command from '../register.commands';
-import { Client, Message } from 'discord.js';
+import Command from '../../structures/command';
+import { EmbedBuilder, Message } from 'discord.js';
+import DiscordBot from '../../structures/client';
+import errorConstructor from '../../utils/embeds/reusable/errors';
+import { Colour_Codes } from '../../../utils/constants';
+import getUserBanner from '../../utils/getUserBanner';
+import whoisConstructor from '../../utils/embeds/info/whois';
 
 export default class Whois extends Command {
 	constructor() {
 		super();
-		this.name = '';
-		this.aliases = ['', ''];
-		this.group = '';
+		this.name = 'whois';
+		this.aliases = ['whois', 'userinfo'];
+		this.group = 'info';
 		this.permissions = [];
-		this.description = '';
-		this.emoji = '';
+		this.description = 'Get basic info about selected user (or thyself).';
+		this.emoji = '👤';
 	}
-	public async run(client: Client, message: Message) {}
+	public async run(client: DiscordBot, message: Message, args: string[]) {
+		try {
+			// get first user mention in message
+			const target = message.mentions.users.first() || message.author;
+
+			// get user roles
+			const user = await message.guild!.members.fetch(target);
+			const roles = [
+				...user.roles.cache
+					.filter((role) => role.name !== '@everyone')
+					.values(),
+			]
+				.sort((a, b) => a.name.length - b.name.length)
+				.slice(0, 30)
+				.join('\n');
+
+			// get target user in guildMember form, to get joinedAt() timestamp
+			const guildUser = await message.guild!.members.fetch(target);
+
+			// get user's banner URL (convoluted method, as discord.js does not support it)
+			const bannerURL = await getUserBanner(target.id);
+
+			// create embed and send it to discord
+			const embed1 = await whoisConstructor(
+				client,
+				message,
+				target,
+				guildUser,
+				roles,
+				bannerURL
+			);
+
+			message.reply({ embeds: [embed1] });
+		} catch (e: any) {
+			errorConstructor(client, message, e);
+		}
+	}
 }
