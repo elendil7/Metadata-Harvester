@@ -1,18 +1,21 @@
 import { join } from 'path';
 import { readdirSync } from 'fs';
-import debug from 'debug';
 import { Collection } from 'discord.js';
+import debugPath from '../../utils/debugPath';
+const LOG = debugPath(__filename);
 
-const LOG = debug('Metadata-Harvester:apps:bot:src:discord:utils:getFiles.ts');
-
-export const getEvents = async () => {
+export const getEvents = async (searchDir: string) => {
 	try {
+		// construct excluded file
+		const excludedFile = `!load.${searchDir}`;
+
+		// get path to specified directory
+		const path = join(__dirname, `../${searchDir}`);
+
 		// for every directory in events folder, get event name, return array of events
-		const path = join(__dirname, '../events');
 		return readdirSync(path, 'utf-8')
 			.filter(
-				(file) =>
-					file.endsWith('.ts') && !file.startsWith('register.events')
+				(file) => file.endsWith('.ts') && !file.includes(excludedFile)
 			)
 			.map((file) => file.split('.ts')[0]);
 	} catch (e) {
@@ -20,31 +23,36 @@ export const getEvents = async () => {
 	}
 };
 
-export const getCommands = async () => {
+export const getCommands = async (searchDir: string) => {
 	try {
-		// for every directory AND subdirectory (1 level deep) in commands folder, get command names, return Collection of commandGroups (subdirectories) and their respective commands (files)
-		const path = join(__dirname, '../commands');
+		// construct excluded file
+		const excludedFile = `!load.${searchDir}`;
 
+		// get path to specified directory
+		const path = join(__dirname, `../${searchDir}`);
+
+		// create collection for storing commands in it
 		let commandGroups = new Collection<string, string[]>();
 
+		// recursively scan directory & subdirectories for .ts command files (excluding "register.{searchDir}")
+		// scan directory for any subdirectories (excluding ts)
 		const subDirectories = readdirSync(path, 'utf-8').filter(
-			(file) => !file.endsWith('.ts')
+			(dir) => !dir.endsWith('.ts')
 		);
 
 		// add each command (file) (string in array) to its resepctive commandGroup (directory) (string)
 		// example of commandGroups collection: Collection {commandGroup: [command1,command2,command3]}
 		subDirectories.forEach((dirName) => {
 			const commandsInDir = readdirSync(`${path}/${dirName}`, 'utf-8')
-				.filter((file) => file.endsWith('.ts'))
+				.filter(
+					(file) =>
+						file.endsWith('.ts') && !file.includes(excludedFile)
+				)
 				.map((file) => file.split('.ts')[0]);
 			commandGroups.set(dirName, commandsInDir);
 		});
 
 		return commandGroups;
-
-		/* readdirSync(`${path}/${dirName}`, 'utf-8').filter((file) =>
-					file.endsWith('.ts')
-				) */
 	} catch (e) {
 		LOG(e);
 	}
