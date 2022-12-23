@@ -8,7 +8,7 @@ export const DISCORD_BOT_ID = getEnv('DISCORD_BOT_ID');
 export const DISCORD_BOT_PREFIX = getEnv('DISCORD_BOT_PREFIX');
 export const DISCORD_OWNER_ID = getEnv('DISCORD_OWNER_ID');
 // register slash commands
-export const DISCORD_GUILD_ID = getEnv('DISCORD_GUILD_ID');
+export const DISCORD_GUILD_IDS = getEnv('DISCORD_GUILD_IDS');
 export const REGISTER_GUILD_SLASH_COMMANDS = getEnv(
 	'REGISTER_GUILD_SLASH_COMMANDS'
 );

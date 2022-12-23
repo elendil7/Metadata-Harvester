@@ -2,7 +2,7 @@ import { REST, Routes } from 'discord.js';
 import {
 	DISCORD_BOT_ID,
 	DISCORD_BOT_TOKEN,
-	DISCORD_GUILD_ID,
+	DISCORD_GUILD_IDS,
 	REGISTER_GLOBAL_SLASH_COMMANDS,
 	REGISTER_GUILD_SLASH_COMMANDS,
 } from '../utils/constants';
@@ -30,17 +30,21 @@ const registerSlashCommands = async (commands: string[]) => {
 
 		// if config set to register guild slash commands, execute
 		if (REGISTER_GUILD_SLASH_COMMANDS === 'true') {
-			// The put method is used to fully refresh all commands in the guild with the current set
-			const data: any = await rest.put(
-				Routes.applicationGuildCommands(
-					DISCORD_BOT_ID,
-					DISCORD_GUILD_ID
-				),
-				{ body: commands }
-			);
-			totalCommandsReloaded.guild += data.length;
+			// for each guild ID in dotenv configuration
+			const guildIDs = DISCORD_GUILD_IDS.split(' ');
+			for (let i = 0; i < guildIDs.length; ++i) {
+				// The put method is used to fully refresh all commands in the guild with the current set
+				const data: any = await rest.put(
+					Routes.applicationGuildCommands(
+						DISCORD_BOT_ID,
+						guildIDs[i]
+					),
+					{ body: commands }
+				);
+			}
+
 			LOG(
-				`Successfully reloaded ${totalCommandsReloaded.guild} <guild> application (/) commands.`
+				`Successfully reloaded ${commands.length} <guild> slash (/) commands across ${guildIDs.length} servers.`
 			);
 		}
 
@@ -55,15 +59,9 @@ const registerSlashCommands = async (commands: string[]) => {
 			);
 			totalCommandsReloaded.global += data.length;
 			LOG(
-				`Successfully reloaded ${totalCommandsReloaded.global} <global> application (/) commands.`
+				`Successfully reloaded ${totalCommandsReloaded.global} <global> slash (/) commands.`
 			);
 		}
-
-		LOG(
-			`Successfully reloaded ${
-				totalCommandsReloaded.guild + totalCommandsReloaded.global
-			} total application (/) commands (guild & global).`
-		);
 	} catch (e) {
 		// And of course, make sure you catch and log any errors!
 		LOG(e);
