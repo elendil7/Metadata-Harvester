@@ -1,12 +1,16 @@
 import DiscordBot from './client';
-import { ApplicationCommandOption, CommandInteraction } from 'discord.js';
+import {
+	ApplicationCommandOption,
+	ApplicationCommandType,
+	CommandInteraction,
+} from 'discord.js';
 
 export interface SlashCommand {
 	data: {
 		name: string;
 		description: string;
-		type?: number;
-		options?: ApplicationCommandOption[];
+		type: ApplicationCommandType;
+		options: ApplicationCommandOption[];
 	};
 	permissions?: string[];
 
