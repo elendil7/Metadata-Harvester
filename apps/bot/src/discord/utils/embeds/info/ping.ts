@@ -2,7 +2,7 @@ import { EmbedBuilder } from '@discordjs/builders';
 import { CommandInteraction, Message } from 'discord.js';
 import {
 	Colour_Codes,
-	Gif_Links,
+	GIF_Links,
 	messageORinteraction,
 	Symbols,
 } from '../../../../utils/constants';
@@ -19,18 +19,26 @@ const pingEmbededConstructor = async (
 	return new EmbedBuilder()
 		.setColor(Colour_Codes.AQUA)
 		.setTitle(`${Symbols.TABLE_TENNIS} Pong! ${Symbols.TABLE_TENNIS}`)
-		.setThumbnail(Gif_Links.ANIMATED_CHECKMARK)
-		.setDescription(
-			[
-				'**Client latency**',
-				'```' +
+		.setThumbnail(GIF_Links.ANIMATED_CHECKMARK)
+		.addFields(
+			{
+				name: 'Client latency',
+				value:
+					'```' +
 					`${Math.abs(Date.now() - structure.createdTimestamp)}ms` +
 					'```',
-				'**Websocket latency**',
-				'```' + `${client.ws.ping}ms` + '```',
-				'**Database latency**',
-				'```' + 'N.A.' + '```',
-			].join('\n')
+				inline: false,
+			},
+			{
+				name: 'Websocket latency',
+				value: '```' + `${client.ws.ping}ms` + '```',
+				inline: false,
+			},
+			{
+				name: 'Database latency',
+				value: '```' + `N.A.` + '```',
+				inline: false,
+			}
 		)
 		.setTimestamp()
 		.setFooter({
