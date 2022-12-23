@@ -63,6 +63,17 @@ export enum Colour_Codes {
 	YELLOW = 16776960,
 }
 
+export enum Command_Group_Colours {
+	CODEWARS_COLOUR = 11027200,
+	ADVENTOFCODE_COLOUR = 15844367,
+	INFO_COLOUR = 5763719,
+	FUN_COLOUR = 1752220,
+	MISC_COLOUR = 9807270,
+	MOD_COLOUR = 2123412,
+	ADMIN_COLOUR = 10038562,
+	OWNER_COLOUR = 7419530,
+}
+
 // Symbols
 export enum Symbols {
 	SUCCESS = '✔️',
