@@ -7,6 +7,7 @@ export default {
 	data: {
 		name: 'ping',
 		description: 'Gets bot ping in ms.',
+		type: 1,
 	},
 
 	run: async (

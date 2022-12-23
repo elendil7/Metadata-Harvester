@@ -11,11 +11,13 @@ export default {
 		// main command (arg 1)
 		name: 'whois',
 		description: 'Get basic info about selected user.',
+		type: 1,
 		// subcommands!
 		options: [
 			{
-				name: '@user',
+				name: 'user',
 				description: 'Mention the user.',
+				type: 1,
 			},
 		],
 	},
