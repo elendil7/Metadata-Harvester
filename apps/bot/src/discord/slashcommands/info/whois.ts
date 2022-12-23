@@ -1,9 +1,14 @@
-import { CommandInteraction } from 'discord.js';
+import {
+	ApplicationCommandOptionType,
+	CommandInteraction,
+	Role,
+} from 'discord.js';
 import DiscordBot from '../../structures/client';
 import { SlashCommand } from '../../structures/slashcommand';
 import whoisConstructor from '../../utils/embeds/info/whois';
-import getUserBanner from '../../utils/getUserBanner';
 import debugPath from '../../../utils/debugPath';
+import errorConstructor from '../../utils/embeds/reusable/errors';
+import { randomSleep } from '../../../utils/sleep';
 const LOG = debugPath(__filename);
 
 export default {
@@ -17,7 +22,8 @@ export default {
 			{
 				name: 'user',
 				description: 'Mention the user.',
-				type: 1,
+				type: 6,
+				required: false,
 			},
 		],
 	},
@@ -28,37 +34,39 @@ export default {
 		args: any[]
 	) => {
 		try {
-			/* 			const target = interaction.mentions.users.first() || message.author;
+			const target =
+				interaction.options.getUser('user') || interaction.user;
 
-			// get user roles
-			const user = await message.guild!.members.fetch(target);
+			const guild = client.guilds.cache.get(String(interaction.guildId));
+
+			const guildMember = await guild!.members.fetch({
+				user: target,
+				withPresences: true,
+			});
+
 			const roles = [
-				...user.roles.cache
+				...guildMember.roles.cache
 					.filter((role) => role.name !== '@everyone')
 					.values(),
 			]
 				.sort((a, b) => a.name.length - b.name.length)
 				.slice(0, 30)
-				.join('\n');
+				.join(', ');
 
-			const guildUser = await message.guild!.members.fetch(target);
+			const embed1 = await whoisConstructor(
+				client,
+				interaction,
+				target,
+				guildMember,
+				roles
+			);
 
-			const bannerURL = await getUserBanner(target.id);
-
-			interaction.reply({
-				embeds: [
-					await whoisConstructor(
-						client,
-						interaction,
-						target,
-						guildUser,
-						roles,
-						bannerURL
-					),
-				],
-			}); */
-		} catch (e) {
+			interaction.reply({ embeds: [embed1] });
+			await randomSleep(500, 1000);
+			interaction.followUp({ embeds: [embed1] });
+		} catch (e: any) {
 			LOG(e);
+			errorConstructor(client, interaction, e);
 		}
 	},
 } as SlashCommand;

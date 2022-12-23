@@ -2,6 +2,8 @@ import { CommandInteraction } from 'discord.js';
 import DiscordBot from '../../structures/client';
 import { SlashCommand } from '../../structures/slashcommand';
 import pingEmbededConstructor from '../../utils/embeds/info/ping';
+import debugPath from '../../../utils/debugPath';
+const LOG = debugPath(__filename);
 
 export default {
 	data: {
@@ -15,8 +17,12 @@ export default {
 		interaction: CommandInteraction,
 		args: any[]
 	) => {
-		interaction.reply({
-			embeds: [await pingEmbededConstructor(client, interaction)],
-		});
+		try {
+			interaction.reply({
+				embeds: [await pingEmbededConstructor(client, interaction)],
+			});
+		} catch (e) {
+			LOG(e);
+		}
 	},
 } as SlashCommand;

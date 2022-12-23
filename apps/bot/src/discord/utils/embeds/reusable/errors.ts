@@ -1,15 +1,30 @@
 import { EmbedBuilder } from '@discordjs/builders';
 import { Message } from 'discord.js';
 import DiscordBot from '../../../structures/client';
-import { Colour_Codes, PNG_Links, Symbols } from '../../../../utils/constants';
+import {
+	Colour_Codes,
+	messageORinteraction,
+	PNG_Links,
+	Symbols,
+} from '../../../../utils/constants';
 import debugPath from '../../../../utils/debugPath';
 const LOG = debugPath(__filename);
 
 const errorConstructor = (
 	client: DiscordBot,
-	message: Message,
+	structure: messageORinteraction,
 	error: Error
 ) => {
+	let command;
+	let user;
+	if (structure instanceof Message) {
+		command = structure.content;
+		user = structure.author;
+	} else {
+		command = `${structure.commandName}: ${structure.command?.description}`;
+		user = structure.user;
+	}
+
 	try {
 		// log error to terminal
 		LOG(`${Symbols.FAILURE}`, error);
@@ -47,20 +62,20 @@ const errorConstructor = (
 				},
 				{
 					name: `Command responsible for this:`,
-					value: message.cleanContent.slice(0, 30),
+					value: '' + command.slice(0, 30),
 					inline: false,
 				}
 			)
 			.setImage(PNG_Links.BUG_EVOLUTION)
 			.setTimestamp()
 			.setFooter({
-				text: `User: ${message.author.tag} | ID: ${message.author.id}`,
-				iconURL: message.author.displayAvatarURL({
+				text: `User: ${user.tag} | ID: ${user.id}`,
+				iconURL: user.displayAvatarURL({
 					forceStatic: false,
 				}),
 			});
 
-		message.reply({ embeds: [errorMessage] });
+		structure.reply({ embeds: [errorMessage] });
 	} catch (e) {
 		LOG(e);
 	}

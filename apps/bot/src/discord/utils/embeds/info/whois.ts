@@ -1,17 +1,30 @@
 import { EmbedBuilder } from '@discordjs/builders';
 import { GuildMember, Message, User } from 'discord.js';
-import { Colour_Codes } from '../../../../utils/constants';
+import {
+	Colour_Codes,
+	messageORinteraction,
+} from '../../../../utils/constants';
 import getElapsedHoursMinsSecs from '../../../../utils/date';
 import DiscordBot from '../../../structures/client';
 import getUserBanner from '../../getUserBanner';
 
 const whoisConstructor = async (
 	client: DiscordBot,
-	message: Message,
+	structure: messageORinteraction,
 	target: User,
 	guildMember: GuildMember,
 	roles: string
 ) => {
+	let message;
+	let user;
+	if (structure instanceof Message) {
+		message = structure.content;
+		user = structure.author;
+	} else {
+		message = structure.options.data;
+		user = structure.user;
+	}
+
 	const whoisEmbed = new EmbedBuilder()
 		.setColor(Colour_Codes.GREEN)
 		.setAuthor({
@@ -44,8 +57,8 @@ const whoisConstructor = async (
 		)
 		.setTimestamp()
 		.setFooter({
-			text: `User: ${message.author.tag} | ID: ${message.author.id}`,
-			iconURL: message.author.displayAvatarURL({
+			text: `User: ${user.tag} | ID: ${user.id}`,
+			iconURL: user.displayAvatarURL({
 				forceStatic: false,
 			}),
 		});
