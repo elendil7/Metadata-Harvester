@@ -21,19 +21,20 @@ export default class Whois extends Command {
 			// get first user mention in message
 			const target = message.mentions.users.first() || message.author;
 
+			// get target user in guildMember form, to get joinedAt() timestamp
+			const guildMember = await message.guild!.members.fetch({
+				user: target,
+				withPresences: true,
+			});
 			// get user roles
-			const user = await message.guild!.members.fetch(target);
 			const roles = [
-				...user.roles.cache
+				...guildMember.roles.cache
 					.filter((role) => role.name !== '@everyone')
 					.values(),
 			]
 				.sort((a, b) => a.name.length - b.name.length)
 				.slice(0, 30)
-				.join('\n');
-
-			// get target user in guildMember form, to get joinedAt() timestamp
-			const guildUser = await message.guild!.members.fetch(target);
+				.join(', ');
 
 			// get user's banner URL (convoluted method, as discord.js does not support it)
 			const bannerURL = await getUserBanner(target.id);
@@ -43,7 +44,7 @@ export default class Whois extends Command {
 				client,
 				message,
 				target,
-				guildUser,
+				guildMember,
 				roles,
 				bannerURL
 			);

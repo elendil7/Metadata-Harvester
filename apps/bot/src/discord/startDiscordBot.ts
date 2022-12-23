@@ -24,6 +24,7 @@ const initiateClient = async () => {
 				'GuildMessages',
 				'GuildMessageReactions',
 				'GuildEmojisAndStickers',
+				'GuildPresences',
 			],
 			makeCache: Options.cacheWithLimits({
 				...Options.DefaultMakeCacheSettings,

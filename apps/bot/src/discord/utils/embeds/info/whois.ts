@@ -7,11 +7,11 @@ const whoisConstructor = async (
 	client: DiscordBot,
 	message: Message,
 	target: User,
-	guildUser: GuildMember,
+	guildMember: GuildMember,
 	roles: string,
 	bannerURL: string
 ) => {
-	return new EmbedBuilder()
+	const whoisEmbed = new EmbedBuilder()
 		.setColor(Colour_Codes.GREEN)
 		.setAuthor({
 			name: target.tag,
@@ -22,7 +22,7 @@ const whoisConstructor = async (
 		.addFields(
 			{
 				name: 'Joined:',
-				value: guildUser.joinedAt!.toUTCString(),
+				value: guildMember.joinedAt!.toUTCString(),
 				inline: true,
 			},
 			{
@@ -44,6 +44,25 @@ const whoisConstructor = async (
 				forceStatic: false,
 			}),
 		});
+
+	// add activities as field embeds to embed, then return it.
+	const activities = guildMember.presence!.activities;
+	for (let i = 0; i < activities.length; ++i) {
+		const a = activities[i];
+		let valueStr: string = '';
+		const emoji = a.emoji?.name || '';
+		if (a.state) valueStr += `\n${emoji} *${a.state}*`;
+		if (a.details) valueStr += `\n${emoji} *${a.details}*`;
+		whoisEmbed.addFields({
+			name: `(${i + 1}) ${a.name}`,
+			value: valueStr,
+			inline: true,
+		});
+	}
+
+	// console.log(activities);
+
+	return whoisEmbed;
 };
 
 export default whoisConstructor;
