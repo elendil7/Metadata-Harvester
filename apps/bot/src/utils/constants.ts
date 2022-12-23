@@ -108,6 +108,13 @@ export enum Images_Sizes {
 }
 
 // Links to external GIFs stored remotely in CDNs or simply websites
-export enum Gif_Links {
+export enum GIF_Links {
 	ANIMATED_CHECKMARK = 'https://cdn.discordapp.com/emojis/723073203307806761.gif?v=1',
+	DEFAULT_BANNER = 'https://whatifgaming.com/wp-content/uploads/2022/03/Living-the-Mountain-Life.jpg',
+}
+
+export enum PNG_Links {
+	BUG_EMOJI = 'https://hotemoji.com/images/dl/3/bug-emoji-by-google.png',
+	BUG_COWBOY = 'https://cdn3.emoji.gg/emojis/cowboybug.png',
+	BUG_EVOLUTION = 'https://yaytext.com/static/849ed9f31f0598a4b5c4df1057844e63/31987/bug-emoji.png',
 }
