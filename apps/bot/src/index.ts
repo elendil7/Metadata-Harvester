@@ -38,6 +38,9 @@ const execute = async () => {
 	// register new/updated slash commands using Discord REST API (if config option set to true)
 	await discordBot.registerSlashCommands();
 
+	// delete slash commands using Discord REST API (if config option set to true)
+	await discordBot.deleteSlashCommands();
+
 	// start discord bot (with partials, intents, and cache)
 	await discordBot.start(DISCORD_BOT_TOKEN);
 

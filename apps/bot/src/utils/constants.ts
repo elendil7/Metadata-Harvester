@@ -7,13 +7,21 @@ export const DISCORD_BOT_TOKEN = getEnv('DISCORD_BOT_TOKEN');
 export const DISCORD_BOT_ID = getEnv('DISCORD_BOT_ID');
 export const DISCORD_BOT_PREFIX = getEnv('DISCORD_BOT_PREFIX');
 export const DISCORD_OWNER_ID = getEnv('DISCORD_OWNER_ID');
-// register slash commands
+
 export const DISCORD_GUILD_IDS = getEnv('DISCORD_GUILD_IDS');
+// register slash commands
 export const REGISTER_GUILD_SLASH_COMMANDS = getEnv(
 	'REGISTER_GUILD_SLASH_COMMANDS'
 );
 export const REGISTER_GLOBAL_SLASH_COMMANDS = getEnv(
 	'REGISTER_GLOBAL_SLASH_COMMANDS'
+);
+// delete slash commands
+export const DELETE_GUILD_SLASH_COMMANDS = getEnv(
+	'DELETE_GUILD_SLASH_COMMANDS'
+);
+export const DELETE_GLOBAL_SLASH_COMMANDS = getEnv(
+	'DELETE_GLOBAL_SLASH_COMMANDS'
 );
 
 // * For database

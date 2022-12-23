@@ -5,6 +5,7 @@ import debugPath from '../../utils/debugPath';
 import { Client, Collection } from 'discord.js';
 import Command from './command';
 import registerSlashCommands from '../../services/register.slash';
+import deleteSlashCommands from '../../services/delete.slash';
 const LOG = debugPath(__filename);
 
 export default class DiscordBot extends Client {
@@ -50,9 +51,21 @@ export default class DiscordBot extends Client {
 	public async registerSlashCommands(): Promise<void> {
 		try {
 			// get array of slash commands, pass into registerSlashCommands method
-			await registerSlashCommands(this.slashCommands.map((v) => v.data));
+			await registerSlashCommands(
+				this,
+				this.slashCommands.map((v) => v.data)
+			);
+		} catch (e) {
+			LOG(e);
+		}
+	}
 
-			LOG('Registered new slash commands.');
+	public async deleteSlashCommands(): Promise<void> {
+		try {
+			await deleteSlashCommands(
+				this,
+				this.slashCommands.map((v) => v.data)
+			);
 		} catch (e) {
 			LOG(e);
 		}
