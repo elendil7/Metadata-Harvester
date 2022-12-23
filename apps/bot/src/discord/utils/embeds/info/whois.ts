@@ -2,14 +2,14 @@ import { EmbedBuilder } from '@discordjs/builders';
 import { GuildMember, Message, User } from 'discord.js';
 import { Colour_Codes } from '../../../../utils/constants';
 import DiscordBot from '../../../structures/client';
+import getUserBanner from '../../getUserBanner';
 
 const whoisConstructor = async (
 	client: DiscordBot,
 	message: Message,
 	target: User,
 	guildMember: GuildMember,
-	roles: string,
-	bannerURL: string
+	roles: string
 ) => {
 	const whoisEmbed = new EmbedBuilder()
 		.setColor(Colour_Codes.GREEN)
@@ -31,12 +31,16 @@ const whoisConstructor = async (
 				inline: true,
 			},
 			{
+				name: 'ID:',
+				value: target.id,
+				inline: true,
+			},
+			{
 				name: 'Roles:',
 				value: roles.slice(0, 3000) || 'No roles.',
 				inline: false,
 			}
 		)
-		.setImage(bannerURL)
 		.setTimestamp()
 		.setFooter({
 			text: `User: ${message.author.tag} | ID: ${message.author.id}`,
@@ -46,21 +50,25 @@ const whoisConstructor = async (
 		});
 
 	// add activities as field embeds to embed, then return it.
-	const activities = guildMember.presence!.activities;
+	const presence = guildMember.presence;
+	const activities = presence ? presence.activities : [];
 	for (let i = 0; i < activities.length; ++i) {
 		const a = activities[i];
 		let valueStr: string = '';
 		const emoji = a.emoji?.name || '';
 		if (a.state) valueStr += `\n${emoji} *${a.state}*`;
-		if (a.details) valueStr += `\n${emoji} *${a.details}*`;
+		if (a.details) valueStr += `\n*${a.details}*`;
 		whoisEmbed.addFields({
 			name: `(${i + 1}) ${a.name}`,
-			value: valueStr,
+			value: valueStr || '*No further details available.*',
 			inline: true,
 		});
 	}
 
-	// console.log(activities);
+	// add user's banner (if exists)
+	// get user's banner URL (convoluted method, as discord.js does not support it)
+	const bannerURL = await getUserBanner(target.id);
+	if (bannerURL) whoisEmbed.setImage(bannerURL);
 
 	return whoisEmbed;
 };

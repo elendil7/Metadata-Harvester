@@ -30,8 +30,8 @@ const getUserBanner = async (uid: string) => {
 		// return user's banner
 		return `https://cdn.discordapp.com/banners/${uid}/${banner}.${format}?size=${size}`;
 	} else {
-		// return default banner
-		return 'https://whatifgaming.com/wp-content/uploads/2022/03/Living-the-Mountain-Life.jpg';
+		// return no banner
+		return null;
 	}
 };
 

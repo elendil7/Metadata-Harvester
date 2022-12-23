@@ -1,9 +1,7 @@
 import Command from '../../structures/command';
-import { EmbedBuilder, Message } from 'discord.js';
+import { Message } from 'discord.js';
 import DiscordBot from '../../structures/client';
 import errorConstructor from '../../utils/embeds/reusable/errors';
-import { Colour_Codes } from '../../../utils/constants';
-import getUserBanner from '../../utils/getUserBanner';
 import whoisConstructor from '../../utils/embeds/info/whois';
 
 export default class Whois extends Command {
@@ -36,17 +34,13 @@ export default class Whois extends Command {
 				.slice(0, 30)
 				.join(', ');
 
-			// get user's banner URL (convoluted method, as discord.js does not support it)
-			const bannerURL = await getUserBanner(target.id);
-
 			// create embed and send it to discord
 			const embed1 = await whoisConstructor(
 				client,
 				message,
 				target,
 				guildMember,
-				roles,
-				bannerURL
+				roles
 			);
 
 			message.reply({ embeds: [embed1] });
