@@ -5,7 +5,7 @@
 	"main": "./src/index.ts",
 	"scripts": {
 		"build": "tsc",
-		"dev": "nodemon src/index.ts --watch src --ignore data/"
+		"dev": "nodemon src/index.ts --watch src --ignore data/ --ignore tests/"
 	},
 	"author": "Aragorn Elessar",
 	"license": "ISC",

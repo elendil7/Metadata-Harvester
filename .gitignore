@@ -13,3 +13,6 @@ package-lock.json
 
 # locally stored data
 data
+
+# testing
+tests
