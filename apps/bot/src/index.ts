@@ -1,4 +1,6 @@
-require('dotenv').config();
+import * as dotenv from 'dotenv';
+import { resolve } from 'path';
+dotenv.config({ path: resolve(__dirname, '..', '.env') });
 import { DISCORD_BOT_TOKEN, Symbols } from './utils/constants';
 import initiateClient from './discord/startDiscordBot';
 
