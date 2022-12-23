@@ -1,6 +1,7 @@
 import { EmbedBuilder } from '@discordjs/builders';
 import { GuildMember, Message, User } from 'discord.js';
 import { Colour_Codes } from '../../../../utils/constants';
+import getElapsedHoursMinsSecs from '../../../../utils/date';
 import DiscordBot from '../../../structures/client';
 import getUserBanner from '../../getUserBanner';
 
@@ -52,15 +53,22 @@ const whoisConstructor = async (
 	// add activities as field embeds to embed, then return it.
 	const presence = guildMember.presence;
 	const activities = presence ? presence.activities : [];
+	// console.log(activities);
 	for (let i = 0; i < activities.length; ++i) {
 		const a = activities[i];
 		let valueStr: string = '';
 		const emoji = a.emoji?.name || '';
 		if (a.state) valueStr += `\n${emoji} *${a.state}*`;
 		if (a.details) valueStr += `\n*${a.details}*`;
+		let timeElapsed = a.timestamps?.start
+			? '\n' +
+			  (await getElapsedHoursMinsSecs(a.timestamps.start, new Date()))
+			: '';
+
 		whoisEmbed.addFields({
 			name: `(${i + 1}) ${a.name}`,
-			value: valueStr || '*No further details available.*',
+			value:
+				(valueStr || `*No further details available.*`) + timeElapsed,
 			inline: true,
 		});
 	}
