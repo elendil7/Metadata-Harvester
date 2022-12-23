@@ -6,7 +6,7 @@ import {
 	REGISTER_GLOBAL_SLASH_COMMANDS,
 	REGISTER_GUILD_SLASH_COMMANDS,
 } from '../utils/constants';
-import sleep from '../utils/sleep';
+import { sleep } from '../utils/sleep';
 import debugPath from '../utils/debugPath';
 const LOG = debugPath(__filename);
 
