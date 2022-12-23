@@ -5,6 +5,7 @@ import { DISCORD_BOT_TOKEN, Symbols } from './utils/constants';
 import initiateClient from './discord/startDiscordBot';
 
 import debugPath from './utils/debugPath';
+import { sleep } from './utils/sleep';
 const LOG = debugPath(__filename);
 
 const execute = async () => {
@@ -38,11 +39,13 @@ const execute = async () => {
 	// register new/updated slash commands using Discord REST API (if config option set to true)
 	await discordBot.registerSlashCommands();
 
-	// delete slash commands using Discord REST API (if config option set to true)
-	await discordBot.deleteSlashCommands();
-
 	// start discord bot (with partials, intents, and cache)
 	await discordBot.start(DISCORD_BOT_TOKEN);
+
+	await sleep(3);
+
+	// delete slash commands using Discord REST API (if config option set to true)
+	await discordBot.deleteSlashCommands();
 
 	LOG(`${Symbols.SUCCESS} Program successfully loaded!`);
 };
