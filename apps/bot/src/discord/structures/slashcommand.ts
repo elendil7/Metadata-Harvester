@@ -10,7 +10,7 @@ export interface SlashCommand {
 		name: string;
 		description: string;
 		type: ApplicationCommandType;
-		options: ApplicationCommandOption[];
+		options?: ApplicationCommandOption[];
 	};
 	permissions?: string[];
 
