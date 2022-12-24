@@ -42,8 +42,7 @@ const execute = async () => {
 	// start discord bot (with partials, intents, and cache)
 	await discordBot.start(DISCORD_BOT_TOKEN);
 
-	await sleep(3);
-
+	await sleep(3); // wait before performing next action; slash commands can only be deleted after Client's ready event triggered.
 	// delete slash commands using Discord REST API (if config option set to true)
 	await discordBot.deleteSlashCommands();
 
