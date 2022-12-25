@@ -1,13 +1,13 @@
 import { EmbedBuilder } from '@discordjs/builders';
 import { Message } from 'discord.js';
-import DiscordBot from '../../../structures/client';
+import DiscordBot from '../../structures/client';
 import {
 	Colour_Codes,
 	messageORinteraction,
 	PNG_Links,
 	Symbols,
-} from '../../../../utils/constants';
-import debugPath from '../../../../utils/debugPath';
+} from '../../../utils/constants';
+import debugPath from '../../../utils/debugPath';
 const LOG = debugPath(__filename);
 
 const errorConstructor = (

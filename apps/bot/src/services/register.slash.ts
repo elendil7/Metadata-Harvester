@@ -1,6 +1,5 @@
 import { REST, Routes } from 'discord.js';
 import {
-	DELETE_GLOBAL_SLASH_COMMANDS,
 	DISCORD_BOT_ID,
 	DISCORD_BOT_TOKEN,
 	DISCORD_GUILD_IDS,

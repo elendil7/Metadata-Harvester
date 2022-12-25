@@ -1,7 +1,7 @@
-import { DISCORD_BOT_PREFIX, DISCORD_OWNER_ID } from '../../utils/constants';
-import { Message, Collection } from 'discord.js';
+import { DISCORD_BOT_PREFIX } from '../../utils/constants';
+import { Message } from 'discord.js';
 import DiscordBot from '../structures/client';
-import errorConstructor from '../utils/embeds/reusable/errors';
+import errorConstructor from '../embeds/reusable/errors';
 
 export default {
 	name: 'messageCreate',

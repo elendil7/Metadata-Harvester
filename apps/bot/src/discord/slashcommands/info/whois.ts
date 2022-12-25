@@ -1,9 +1,9 @@
 import { CommandInteraction } from 'discord.js';
 import DiscordBot from '../../structures/client';
 import { SlashCommand } from '../../structures/slashcommand';
-import whoisConstructor from '../../utils/embeds/info/whois';
+import whoisConstructor from '../../embeds/info/whois';
 import debugPath from '../../../utils/debugPath';
-import errorConstructor from '../../utils/embeds/reusable/errors';
+import errorConstructor from '../../embeds/reusable/errors';
 import { getGuildMember } from '../../utils/methods/getGuildMember';
 import { getGuild } from '../../utils/compatibility/getGuild';
 import { getUserRoles } from '../../utils/methods/getUserRoles';

@@ -1,10 +1,10 @@
-import DiscordBot from '../../../structures/client';
+import DiscordBot from '../../structures/client';
 import { EmbedBuilder } from '@discordjs/builders';
 import {
 	Symbols,
 	Colour_Codes,
 	DISCORD_BOT_PREFIX,
-} from '../../../../utils/constants';
+} from '../../../utils/constants';
 import { CommandInteraction } from 'discord.js';
 
 const invalidSlashCommandConstructor = async (

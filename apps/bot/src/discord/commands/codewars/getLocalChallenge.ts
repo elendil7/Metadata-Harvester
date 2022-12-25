@@ -3,9 +3,9 @@ import DiscordBot from '../../structures/client';
 import { Message } from 'discord.js';
 import { Map } from 'typescript';
 import { readdirSync, readFileSync } from 'fs';
-import codewarsChallengeConstruction from '../../utils/embeds/codewars/challenge';
+import codewarsChallengeConstruction from '../../embeds/codewars/challenge';
 import { join } from 'path';
-import errorConstructor from '../../utils/embeds/reusable/errors';
+import errorConstructor from '../../embeds/reusable/errors';
 
 export default class GetLocalChallenge extends Command {
 	private challengeNames;
