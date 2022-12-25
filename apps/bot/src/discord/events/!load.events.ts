@@ -1,6 +1,6 @@
-import { getEvents } from '../utils/getFiles';
 import DiscordBot from '../structures/client';
 import debugPath from '../../utils/debugPath';
+import { getEvents } from '../utils/methods/getFiles';
 const LOG = debugPath(__filename);
 
 const bootstrapEvents = async (client: DiscordBot, searchDir: string) => {
