@@ -3,6 +3,8 @@ import { Message } from 'discord.js';
 import DiscordBot from '../../structures/client';
 import errorConstructor from '../../utils/embeds/reusable/errors';
 import whoisConstructor from '../../utils/embeds/info/whois';
+import { getGuildMember } from '../../utils/methods/getGuildMember';
+import { getUserRoles } from '../../utils/methods/getUserRoles';
 
 export default class Whois extends Command {
 	constructor() {
@@ -20,19 +22,15 @@ export default class Whois extends Command {
 			const target = message.mentions.users.first() || message.author;
 
 			// get target user in guildMember form, to get joinedAt() timestamp
-			const guildMember = await message.guild!.members.fetch({
-				user: target,
-				withPresences: true,
-			});
+			const guildMember = await getGuildMember(target, message.guild!);
+
 			// get user roles
-			const roles = [
-				...guildMember.roles.cache
-					.filter((role) => role.name !== '@everyone')
-					.values(),
-			]
-				.sort((a, b) => a.name.length - b.name.length)
-				.slice(0, 30)
-				.join(', ');
+			const roles = await getUserRoles(guildMember).then((res) =>
+				res
+					.sort((a, b) => a.name.length - b.name.length)
+					.slice(0, 30)
+					.join(', ')
+			);
 
 			// create embed and send it to discord
 			const embed1 = await whoisConstructor(

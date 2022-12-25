@@ -1,56 +1,46 @@
-import {
-	ApplicationCommandOptionType,
-	CommandInteraction,
-	Role,
-} from 'discord.js';
+import { CommandInteraction } from 'discord.js';
 import DiscordBot from '../../structures/client';
 import { SlashCommand } from '../../structures/slashcommand';
 import whoisConstructor from '../../utils/embeds/info/whois';
 import debugPath from '../../../utils/debugPath';
 import errorConstructor from '../../utils/embeds/reusable/errors';
+import { getGuildMember } from '../../utils/methods/getGuildMember';
+import { getGuild } from '../../utils/compatibility/getGuild';
+import { getUserRoles } from '../../utils/methods/getUserRoles';
 const LOG = debugPath(__filename);
 
 export default {
 	data: {
 		// main command (arg 1)
 		name: 'whois',
-		description: 'Get basic info about selected user.',
+		description: 'Get basic info about selected user',
 		type: 1,
 		// subcommands!
 		options: [
 			{
 				name: 'user',
-				description: 'Mention the user.',
+				description: 'The user to get basic info about',
 				type: 6,
 				required: false,
 			},
 		],
 	},
 
-	run: async (
-		client: DiscordBot,
-		interaction: CommandInteraction,
-		args: any[]
-	) => {
+	run: async (client: DiscordBot, interaction: CommandInteraction) => {
 		try {
 			const target =
 				interaction.options.getUser('user') || interaction.user;
 
-			const guild = client.guilds.cache.get(String(interaction.guildId));
+			const guild = await getGuild(client, interaction);
 
-			const guildMember = await guild!.members.fetch({
-				user: target,
-				withPresences: true,
-			});
+			const guildMember = await getGuildMember(target, guild!);
 
-			const roles = [
-				...guildMember.roles.cache
-					.filter((role) => role.name !== '@everyone')
-					.values(),
-			]
-				.sort((a, b) => a.name.length - b.name.length)
-				.slice(0, 30)
-				.join(', ');
+			const roles = await getUserRoles(guildMember).then((res) =>
+				res
+					.sort((a, b) => a.name.length - b.name.length)
+					.slice(0, 30)
+					.join(', ')
+			);
 
 			const embed1 = await whoisConstructor(
 				client,

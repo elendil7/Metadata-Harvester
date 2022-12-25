@@ -1,12 +1,13 @@
 import { EmbedBuilder } from '@discordjs/builders';
-import { GuildMember, Message, User } from 'discord.js';
+import { GuildMember, User } from 'discord.js';
 import {
 	Colour_Codes,
 	messageORinteraction,
 } from '../../../../utils/constants';
 import getElapsedHoursMinsSecs from '../../../../utils/date';
 import DiscordBot from '../../../structures/client';
-import getUserBanner from '../../getUserBanner';
+import { getUser } from '../../compatibility/getUser';
+import getUserBanner from '../../methods/getUserBanner';
 
 const whoisConstructor = async (
 	client: DiscordBot,
@@ -15,15 +16,7 @@ const whoisConstructor = async (
 	guildMember: GuildMember,
 	roles: string
 ) => {
-	let message;
-	let user;
-	if (structure instanceof Message) {
-		message = structure.content;
-		user = structure.author;
-	} else {
-		message = structure.options.data;
-		user = structure.user;
-	}
+	const user = await getUser(client, structure);
 
 	const whoisEmbed = new EmbedBuilder()
 		.setColor(Colour_Codes.GREEN)
