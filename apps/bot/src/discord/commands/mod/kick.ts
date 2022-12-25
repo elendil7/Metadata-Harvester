@@ -5,8 +5,8 @@ export default class Kick extends Command {
 	constructor() {
 		super();
 		this.name = 'kick';
-		this.aliases = ['', ''];
-		this.group = '';
+		this.aliases = ['kick', 'dropkick'];
+		this.group = 'mod';
 		this.permissions = [];
 		this.description = '';
 		this.emoji = '';

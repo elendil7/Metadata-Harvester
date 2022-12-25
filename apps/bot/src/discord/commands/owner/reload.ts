@@ -6,7 +6,7 @@ export default class Reload extends Command {
 		super();
 		this.name = 'reload';
 		this.aliases = ['reload', ''];
-		this.group = '';
+		this.group = 'owner';
 		this.permissions = [];
 		this.description = '';
 		this.emoji = '🔄';

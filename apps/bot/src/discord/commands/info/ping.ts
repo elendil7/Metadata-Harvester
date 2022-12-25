@@ -10,7 +10,7 @@ export default class Ping extends Command {
 		super();
 		this.name = 'ping';
 		this.aliases = ['ping', 'latency'];
-		this.group = '';
+		this.group = 'info';
 		this.permissions = [];
 		this.description = '';
 		this.emoji = '';

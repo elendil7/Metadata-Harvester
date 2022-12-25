@@ -11,11 +11,10 @@ export default class Calculator extends Command {
 		super();
 		this.name = 'calculator';
 		this.aliases = ['calculator', 'calculate', 'calc', 'derive'];
-		this.group = '';
+		this.group = 'misc';
 		this.permissions = [];
 		this.description = 'Performs mathematical operations on input numbers';
 		this.emoji = '🔢';
-		this.run = this.run;
 	}
 
 	public async run(client: DiscordBot, message: Message, args: string[]) {

@@ -9,7 +9,7 @@ const LOG = debugPath(__filename);
 export default class TimeTillNext extends Command {
 	constructor() {
 		super();
-		this.name = 'timeTillNext';
+		this.name = 'timetillnext';
 		this.aliases = ['aoc', 'aoctime'];
 		this.group = 'adventofcode';
 		this.permissions = [''];

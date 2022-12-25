@@ -5,8 +5,8 @@ export default class Ban extends Command {
 	constructor() {
 		super();
 		this.name = 'ban';
-		this.aliases = ['', ''];
-		this.group = '';
+		this.aliases = ['ban', 'banish'];
+		this.group = 'mod';
 		this.permissions = [];
 		this.description = '';
 		this.emoji = '';

@@ -4,9 +4,9 @@ import Command from '../../structures/command';
 export default class Prefix extends Command {
 	constructor() {
 		super();
-		this.name = '';
-		this.aliases = ['', ''];
-		this.group = '';
+		this.name = 'prefix';
+		this.aliases = ['prefix', ''];
+		this.group = 'owner';
 		this.permissions = [];
 		this.description = '';
 		this.emoji = '';

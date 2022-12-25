@@ -5,8 +5,8 @@ export default class Mute extends Command {
 	constructor() {
 		super();
 		this.name = 'mute';
-		this.aliases = ['', ''];
-		this.group = '';
+		this.aliases = ['mute', 'silence', 'censor'];
+		this.group = 'mod';
 		this.permissions = [];
 		this.description = '';
 		this.emoji = '';
