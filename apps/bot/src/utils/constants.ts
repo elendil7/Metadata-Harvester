@@ -101,6 +101,18 @@ export enum Symbols {
 	TABLE_TENNIS = '🏓',
 }
 
+// Category (command group) emojis
+export enum Category_Emojis {
+	ADMIN = '🧙',
+	ADVENTOFCODE = '⭐',
+	CODEWARS = '⚔️',
+	FUN = '😄',
+	INFO = '📖',
+	MISC = '💡',
+	MOD = '🛡️',
+	OWNER = '👑',
+}
+
 // Time values
 export enum Convert_MS {
 	MS = 1,
