@@ -2,9 +2,13 @@ import { CommandInteraction } from 'discord.js';
 import DiscordBot from '../../structures/client';
 import { SlashCommand } from '../../structures/slashcommand';
 import debugPath from '../../../utils/debugPath';
+import {
+	helpCategoryEmbedConstructor,
+	helpCommandEmbedConstructor,
+} from '../../embeds/info/help';
 const LOG = debugPath(__filename);
 
-export default {
+const helpSlashCommand = {
 	data: {
 		name: 'help',
 		description: 'Shows a list of commands',
@@ -14,15 +18,42 @@ export default {
 				name: 'command',
 				description: 'The command to get information about',
 				type: 3,
-				required: false,
+				choices: [
+					{
+						name: 'choice name',
+						value: 'choice value',
+					},
+				],
 			},
 		],
 	},
 	run: async (client: DiscordBot, interaction: CommandInteraction) => {
 		try {
-			const command = interaction.options.get('command')?.value;
+			const command = await client.getCommand(
+				String(interaction.options.get('command')?.value)
+			);
+
+			if (command) {
+				interaction.reply({
+					embeds: [
+						await helpCommandEmbedConstructor(
+							client,
+							interaction,
+							command
+						),
+					],
+				});
+			} else {
+				interaction.reply({
+					embeds: [
+						await helpCategoryEmbedConstructor(client, interaction),
+					],
+				});
+			}
 		} catch (e) {
 			LOG(e);
 		}
 	},
 } as SlashCommand;
+
+export default helpSlashCommand;
