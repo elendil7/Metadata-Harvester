@@ -13,7 +13,7 @@ export default class Whois extends Command {
 		this.aliases = ['whois', 'userinfo'];
 		this.group = 'info';
 		this.permissions = [];
-		this.description = 'Get basic info about selected user (or thyself).';
+		this.description = 'Get basic info about selected user (or yourself).';
 		this.emoji = '👤';
 	}
 	public async run(client: DiscordBot, message: Message, args: string[]) {

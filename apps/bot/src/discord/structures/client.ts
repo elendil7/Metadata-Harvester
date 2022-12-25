@@ -71,7 +71,7 @@ export default class DiscordBot extends Client {
 		}
 	}
 
-	public getCommand(commandName: string) {
+	public async getCommand(commandName: string) {
 		try {
 			return this.commands.get(commandName);
 		} catch (e) {
