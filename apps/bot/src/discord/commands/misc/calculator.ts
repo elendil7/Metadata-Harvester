@@ -1,8 +1,8 @@
 import Command from '../../structures/command';
 import { Message } from 'discord.js';
 import DiscordBot from '../../structures/client';
-import errorConstructor from '../../utils/embeds/reusable/errors';
-import invalidCommandConstructor from '../../utils/embeds/reusable/invalidCommand';
+import errorConstructor from '../../embeds/reusable/errors';
+import invalidCommandConstructor from '../../embeds/reusable/invalidCommand';
 import debugPath from '../../../utils/debugPath';
 const LOG = debugPath(__filename);
 

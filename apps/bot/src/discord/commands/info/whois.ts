@@ -1,8 +1,8 @@
 import Command from '../../structures/command';
 import { Message } from 'discord.js';
 import DiscordBot from '../../structures/client';
-import errorConstructor from '../../utils/embeds/reusable/errors';
-import whoisConstructor from '../../utils/embeds/info/whois';
+import errorConstructor from '../../embeds/reusable/errors';
+import whoisConstructor from '../../embeds/info/whois';
 import { getGuildMember } from '../../utils/methods/getGuildMember';
 import { getUserRoles } from '../../utils/methods/getUserRoles';
 

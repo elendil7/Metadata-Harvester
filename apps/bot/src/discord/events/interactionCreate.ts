@@ -1,6 +1,6 @@
 import DiscordBot from '../structures/client';
 import { CommandInteraction } from 'discord.js';
-import invalidSlashCommandConstructor from '../utils/embeds/reusable/invalidSlashCommand';
+import invalidSlashCommandConstructor from '../embeds/reusable/invalidSlashCommand';
 import { Symbols } from '../../utils/constants';
 import debugPath from '../../utils/debugPath';
 const LOG = debugPath(__filename);

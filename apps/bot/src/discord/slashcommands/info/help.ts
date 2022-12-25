@@ -1,22 +1,26 @@
 import { CommandInteraction } from 'discord.js';
 import DiscordBot from '../../structures/client';
 import { SlashCommand } from '../../structures/slashcommand';
-import pingEmbededConstructor from '../../embeds/info/ping';
 import debugPath from '../../../utils/debugPath';
 const LOG = debugPath(__filename);
 
 export default {
 	data: {
-		name: 'ping',
-		description: "Gets the bot's ping in ms",
+		name: 'help',
+		description: 'Shows a list of commands',
 		type: 1,
+		options: [
+			{
+				name: 'command',
+				description: 'The command to get information about',
+				type: 3,
+				required: false,
+			},
+		],
 	},
-
 	run: async (client: DiscordBot, interaction: CommandInteraction) => {
 		try {
-			interaction.reply({
-				embeds: [await pingEmbededConstructor(client, interaction)],
-			});
+			const command = interaction.options.get('command')?.value;
 		} catch (e) {
 			LOG(e);
 		}

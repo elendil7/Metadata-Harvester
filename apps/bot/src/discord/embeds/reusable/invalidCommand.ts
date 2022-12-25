@@ -1,12 +1,12 @@
-import DiscordBot from '../../../structures/client';
+import DiscordBot from '../../structures/client';
 import { EmbedBuilder } from '@discordjs/builders';
 import { Message } from 'discord.js';
 import {
 	Symbols,
 	Colour_Codes,
 	DISCORD_BOT_PREFIX,
-} from '../../../../utils/constants';
-import Command from '../../../structures/command';
+} from '../../../utils/constants';
+import Command from '../../structures/command';
 
 const invalidCommandConstructor = (
 	client: DiscordBot,

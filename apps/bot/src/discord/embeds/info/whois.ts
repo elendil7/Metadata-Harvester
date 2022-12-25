@@ -1,13 +1,10 @@
 import { EmbedBuilder } from '@discordjs/builders';
 import { GuildMember, User } from 'discord.js';
-import {
-	Colour_Codes,
-	messageORinteraction,
-} from '../../../../utils/constants';
-import getElapsedHoursMinsSecs from '../../../../utils/date';
-import DiscordBot from '../../../structures/client';
-import { getUser } from '../../compatibility/getUser';
-import getUserBanner from '../../methods/getUserBanner';
+import { Colour_Codes, messageORinteraction } from '../../../utils/constants';
+import getElapsedHoursMinsSecs from '../../../utils/date';
+import DiscordBot from '../../structures/client';
+import { getUser } from '../../utils/compatibility/getUser';
+import getUserBanner from '../../utils/methods/getUserBanner';
 
 const whoisConstructor = async (
 	client: DiscordBot,

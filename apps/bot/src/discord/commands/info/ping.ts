@@ -1,6 +1,6 @@
 import Command from '../../structures/command';
 import { Message } from 'discord.js';
-import pingEmbededConstructor from '../../utils/embeds/info/ping';
+import pingEmbededConstructor from '../../embeds/info/ping';
 import DiscordBot from '../../structures/client';
 import debugPath from '../../../utils/debugPath';
 const LOG = debugPath(__filename);

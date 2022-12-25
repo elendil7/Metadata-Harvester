@@ -1,12 +1,12 @@
 import { EmbedBuilder } from '@discordjs/builders';
-import { CommandInteraction, Message } from 'discord.js';
+import { Message } from 'discord.js';
 import {
 	Colour_Codes,
 	GIF_Links,
 	messageORinteraction,
 	Symbols,
-} from '../../../../utils/constants';
-import DiscordBot from '../../../structures/client';
+} from '../../../utils/constants';
+import DiscordBot from '../../structures/client';
 
 const pingEmbededConstructor = async (
 	client: DiscordBot,
