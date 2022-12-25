@@ -1,7 +1,5 @@
-import { Message } from 'discord.js';
-import DiscordBot from '../structures/client';
 import { request } from 'undici';
-import { DISCORD_BOT_TOKEN, Images_Sizes } from '../../utils/constants';
+import { DISCORD_BOT_TOKEN, Images_Sizes } from '../../../utils/constants';
 
 const getUserBanner = async (uid: string) => {
 	const { statusCode, headers, trailers, body } = await request(

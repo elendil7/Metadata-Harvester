@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { readdirSync } from 'fs';
 import { Collection } from 'discord.js';
-import debugPath from '../../utils/debugPath';
+import debugPath from '../../../utils/debugPath';
 const LOG = debugPath(__filename);
 
 export const getEvents = async (searchDir: string) => {
@@ -10,7 +10,7 @@ export const getEvents = async (searchDir: string) => {
 		const excludedFile = `!load.${searchDir}`;
 
 		// get path to specified directory
-		const path = join(__dirname, `../${searchDir}`);
+		const path = join(__dirname, `../../${searchDir}`);
 
 		// for every directory in events folder, get event name, return array of events
 		return readdirSync(path, 'utf-8')
@@ -29,7 +29,7 @@ export const getCommands = async (searchDir: string) => {
 		const excludedFile = `!load.${searchDir}`;
 
 		// get path to specified directory
-		const path = join(__dirname, `../${searchDir}`);
+		const path = join(__dirname, `../../${searchDir}`);
 
 		// create collection for storing commands in it
 		let commandGroups = new Collection<string, string[]>();
