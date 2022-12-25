@@ -8,7 +8,6 @@ import { SlashCommand } from '../../structures/slashcommand';
 import whoisConstructor from '../../utils/embeds/info/whois';
 import debugPath from '../../../utils/debugPath';
 import errorConstructor from '../../utils/embeds/reusable/errors';
-import { randomSleep } from '../../../utils/sleep';
 const LOG = debugPath(__filename);
 
 export default {
@@ -62,8 +61,6 @@ export default {
 			);
 
 			interaction.reply({ embeds: [embed1] });
-			await randomSleep(500, 1000);
-			interaction.followUp({ embeds: [embed1] });
 		} catch (e: any) {
 			LOG(e);
 			errorConstructor(client, interaction, e);
