@@ -1,4 +1,4 @@
-import { CommandInteraction, Message } from 'discord.js';
+import { ClientUser, CommandInteraction, Message, User } from 'discord.js';
 import { getEnv } from './getEnv';
 
 // * For discord bot
@@ -30,6 +30,7 @@ export const DELETE_GLOBAL_SLASH_COMMANDS = getEnv(
 // Custom types
 export type numberORstring = number | string;
 export type messageORinteraction = CommandInteraction | Message; // for passing either message/interaction into embed constructor
+export type userORclientuser = User | ClientUser; // for defaulting to either User or ClientUser objects when creating embeds
 
 // * Miscellaneous
 // Colours
@@ -136,4 +137,5 @@ export enum PNG_Links {
 	BUG_EMOJI = 'https://hotemoji.com/images/dl/3/bug-emoji-by-google.png',
 	BUG_COWBOY = 'https://cdn3.emoji.gg/emojis/cowboybug.png',
 	BUG_EVOLUTION = 'https://yaytext.com/static/849ed9f31f0598a4b5c4df1057844e63/31987/bug-emoji.png',
+	ADVENT_OF_CODE = 'https://cdn.dribbble.com/users/6396772/screenshots/14767265/media/fdbae1feee133bdd26342ba7fc0093dc.png',
 }
