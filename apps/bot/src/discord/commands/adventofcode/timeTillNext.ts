@@ -10,7 +10,7 @@ export default class TimeTillNext extends Command {
 	constructor() {
 		super();
 		this.name = 'timetillnext';
-		this.aliases = ['aoc', 'aoctime'];
+		this.aliases = ['timetillnext', 'aoc', 'aoctime'];
 		this.group = 'adventofcode';
 		this.permissions = [];
 		this.description =

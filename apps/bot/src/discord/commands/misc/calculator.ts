@@ -9,7 +9,7 @@ const LOG = debugPath(__filename);
 export default class Calculator extends Command {
 	constructor() {
 		super();
-		this.name = 'calculator';
+		this.name = 'calculate';
 		this.aliases = ['calculator', 'calculate', 'calc', 'derive'];
 		this.group = 'misc';
 		this.permissions = [];
@@ -41,7 +41,7 @@ export default class Calculator extends Command {
 					break;
 			}
 		} catch (e: any) {
-			errorConstructor(client, message, e);
+			await errorConstructor(client, message, e);
 		}
 	}
 

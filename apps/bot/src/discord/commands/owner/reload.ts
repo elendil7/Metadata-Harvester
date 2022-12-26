@@ -5,7 +5,7 @@ export default class Reload extends Command {
 	constructor() {
 		super();
 		this.name = 'reload';
-		this.aliases = ['reload', ''];
+		this.aliases = ['reload', 'restart', 'reboot', 'reinvigorate'];
 		this.group = 'owner';
 		this.permissions = [];
 		this.ownerOnly = true;

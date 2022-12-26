@@ -10,9 +10,8 @@ export default class GetRemoteChallenge extends Command {
 		this.aliases = ['remote', 'remotechallenge', 'getremotechallenge'];
 		this.group = 'codewars';
 		this.permissions = [];
-		this.description = 'This command fetches remote codewars challenge.';
+		this.description = 'Fetches a random remote codewars challenge';
 		this.emoji = '🧩';
-		this.run = this.run;
 	}
 
 	public async run(client: DiscordBot, message: Message): Promise<void> {}

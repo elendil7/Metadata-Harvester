@@ -12,12 +12,11 @@ export default class GetLocalChallenge extends Command {
 
 	constructor() {
 		super();
-		this.name = 'getlocalchallenge';
-		this.aliases = ['puzzle', 'challenge', 'getchallenge'];
+		this.name = 'puzzle';
+		this.aliases = ['puzzle', 'puzzle', 'challenge', 'getchallenge'];
 		this.group = 'codewars';
 		this.permissions = [];
-		this.description =
-			'This command generates a random codewars challenge.';
+		this.description = 'Fetches a random codewars challenge';
 		this.emoji = '🧩';
 		this.challengeNames = new Array<string>();
 	}

@@ -5,7 +5,7 @@ export default class Prefix extends Command {
 	constructor() {
 		super();
 		this.name = 'prefix';
-		this.aliases = ['prefix', ''];
+		this.aliases = ['prefix', 'changeprefix', 'setprefix'];
 		this.group = 'owner';
 		this.permissions = [];
 		this.ownerOnly = true;

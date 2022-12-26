@@ -1,7 +1,7 @@
 import { EmbedBuilder } from '@discordjs/builders';
 import { Message } from 'discord.js';
 import {
-	Colour_Codes,
+	Command_Group_Colours,
 	GIF_Links,
 	messageORinteraction,
 	Symbols,
@@ -17,7 +17,7 @@ const pingEmbededConstructor = async (
 	let user = structure instanceof Message ? structure.author : structure.user;
 
 	return new EmbedBuilder()
-		.setColor(Colour_Codes.AQUA)
+		.setColor(Command_Group_Colours.INFO_COLOUR)
 		.setTitle(`${Symbols.TABLE_TENNIS} Pong! ${Symbols.TABLE_TENNIS}`)
 		.setThumbnail(GIF_Links.ANIMATED_CHECKMARK)
 		.addFields(
