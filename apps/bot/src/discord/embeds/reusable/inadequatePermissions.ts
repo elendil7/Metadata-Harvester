@@ -19,43 +19,49 @@ export const inadequatePermissionsEmbedConstructor = async (
 		.addFields(
 			{
 				name: `Command:`,
-				value: '`' + command.name + '`',
+				value: `\`${command.name}\``,
 				inline: false,
 			},
 			{
 				name: `Issue:`,
-				value:
-					'`' +
-					'You do not have the required permissions to execute this command.' +
-					'`',
+				value: '`You do not have the required permissions to execute this command.`',
 				inline: false,
 			},
 			{
 				name: `Permissions required:`,
 				value: command.permissions
-					.map(
-						// @ts-ignore
-						(v) => '`' + (Discord_Permissions[String(v)] || v) + '`'
-					)
+					.map((v) => {
+						const z = String(v);
+						return `\`${
+							z in Discord_Permissions
+								? Discord_Permissions[
+										z as keyof typeof Discord_Permissions
+								  ]
+								: v
+						}\``;
+					})
 					.join(', '),
 				inline: true,
 			},
 			{
 				name: `Missing permissions`,
 				value: missingPermissions
-					.map(
-						// @ts-ignore
-						(v) => '`' + (Discord_Permissions[String(v)] || v) + '`'
-					)
+					.map((v) => {
+						const z = String(v);
+						return `\`${
+							z in Discord_Permissions
+								? Discord_Permissions[
+										z as keyof typeof Discord_Permissions
+								  ]
+								: v
+						}\``;
+					})
 					.join(', '),
 				inline: true,
 			},
 			{
 				name: `Further steps:`,
-				value:
-					'`' +
-					`Run ${DISCORD_BOT_PREFIX}help for more information on commands.` +
-					'`',
+				value: `\`Run ${DISCORD_BOT_PREFIX}help for more information on commands.\``,
 				inline: false,
 			}
 		)
@@ -76,23 +82,17 @@ export const ownerOnlyEmbedConstructor = async (
 		.addFields(
 			{
 				name: `Command:`,
-				value: '`' + command.name + '`',
+				value: `\`${command.name}\``,
 				inline: false,
 			},
 			{
 				name: `Issue:`,
-				value:
-					'`' +
-					'This command can only be executed by the bot owner.' +
-					'`',
+				value: '`This command can only be executed by the bot owner.`',
 				inline: false,
 			},
 			{
 				name: `Further steps:`,
-				value:
-					'`' +
-					`Run ${DISCORD_BOT_PREFIX}help for more information on available commands.` +
-					'`',
+				value: `\`Run ${DISCORD_BOT_PREFIX}help for more information on available commands.\``,
 				inline: false,
 			}
 		)

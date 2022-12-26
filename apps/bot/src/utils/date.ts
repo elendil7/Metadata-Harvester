@@ -13,12 +13,8 @@ const getElapsedHoursMinsSecs = async (oldDate: Date, newDate: Date) => {
 		);
 	}
 
-	return (
-		'`' +
-		`${secondsToHMS(
-			(newDate.getTime() - oldDate.getTime()) / 1000
-		)} elapsed` +
-		'`'
-	);
+	return `\`${secondsToHMS(
+		(newDate.getTime() - oldDate.getTime()) / 1000
+	)} elapsed\``;
 };
 export default getElapsedHoursMinsSecs;

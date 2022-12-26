@@ -54,20 +54,17 @@ export const unknownCommand = async (user: User, commandName: string) => {
 		.addFields(
 			{
 				name: `Command:`,
-				value: '`' + commandName.trim().slice(0, 30) + '`',
+				value: `\`${commandName.trim().slice(0, 30)}\``,
 				inline: false,
 			},
 			{
 				name: `Issue:`,
-				value: '`' + 'No such command exists' + '`',
+				value: '`No such command exists`',
 				inline: false,
 			},
 			{
 				name: `What to do now?`,
-				value:
-					'`' +
-					`Run ${DISCORD_BOT_PREFIX}help command for information on commands.` +
-					'`',
+				value: `\`Run ${DISCORD_BOT_PREFIX}help command for information on commands.\``,
 				inline: false,
 			}
 		)

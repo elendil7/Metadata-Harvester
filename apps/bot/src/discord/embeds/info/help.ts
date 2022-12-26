@@ -3,6 +3,7 @@ import {
 	Category_Emojis,
 	Command_Group_Colours,
 	DISCORD_BOT_PREFIX,
+	Discord_Permissions,
 	messageORinteraction,
 } from '../../../utils/constants';
 import DiscordBot from '../../structures/client';
@@ -44,12 +45,12 @@ export const helpCategoryEmbedConstructor = async (
 			const val = groupedCommands[key];
 			embed.addFields({
 				// @ts-ignore
-				name: `${Category_Emojis[key.toUpperCase()] + ' ' || ''}${
-					key[0].toUpperCase() + key.slice(1)
-				}`,
-				value: val
-					.map((cmd: Command) => '`' + cmd.name + '`')
-					.join(', '),
+				name: `${
+					Category_Emojis[
+						key.toUpperCase() as keyof typeof Category_Emojis
+					] + ' ' || ''
+				}${key[0].toUpperCase() + key.slice(1)}`,
+				value: val.map((cmd: Command) => `\`${cmd.name}\``).join(', '),
 				inline: true,
 			});
 		}
@@ -57,7 +58,7 @@ export const helpCategoryEmbedConstructor = async (
 		client.slashCommands.forEach((v, k) => {
 			embed.addFields({
 				name: k,
-				value: '`' + v.data.description + '`' + `\nGroup: ${v.group}`,
+				value: `\`${v.data.description}\`\nGroup: ${v.group}`,
 				inline: false,
 			});
 		});
@@ -90,20 +91,32 @@ export const helpCommandEmbedConstructor = async (
 				name: 'Aliases',
 				value:
 					command.aliases
-						.map((v) => '`' + `${DISCORD_BOT_PREFIX}${v}` + '`')
-						.join(', ') || 'None',
-				inline: true,
+						.map((v) => `\`${DISCORD_BOT_PREFIX}${v}\``)
+						.join(', ') || '`None`',
+				inline: false,
 			},
 			{
-				name: 'Permissions',
+				name: 'Permissions required',
 				value:
-					command.permissions.map((v) => '`' + v + '`').join(', ') ||
-					'None',
-				inline: true,
+					command.permissions
+						.map((v) => {
+							// check if value v is a key inside the Discord_Permissions enum. If it is, return the enum value, else return the key (permission BigInt number)
+							const z = String(v);
+							return `\`${
+								z in Discord_Permissions
+									? Discord_Permissions[
+											// hacky way to assert that z is a key type of the Discord_Permissions enum (without using @ts-ignore)
+											z as keyof typeof Discord_Permissions
+									  ]
+									: v
+							}\``;
+						})
+						.join(', ') || '`None`',
+				inline: false,
 			},
 			{
 				name: 'Description',
-				value: command.description || 'None',
+				value: `\`${command.description || 'None'}\``,
 				inline: false,
 			}
 		);
