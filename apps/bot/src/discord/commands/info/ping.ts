@@ -1,5 +1,5 @@
 import Command from '../../structures/command';
-import { Message } from 'discord.js';
+import { Message, PermissionFlagsBits, PermissionsBitField } from 'discord.js';
 import pingEmbededConstructor from '../../embeds/info/ping';
 import DiscordBot from '../../structures/client';
 import debugPath from '../../../utils/debugPath';
@@ -12,12 +12,12 @@ export default class Ping extends Command {
 		this.aliases = ['ping', 'latency'];
 		this.group = 'info';
 		this.permissions = [];
-		this.description = '';
-		this.emoji = '';
+		this.description = 'Gets bot latency (ping) in ms';
+		this.emoji = '🏓';
 	}
 	public async run(client: DiscordBot, message: Message) {
 		try {
-			message.reply({
+			await message.reply({
 				embeds: [await pingEmbededConstructor(client, message)],
 			});
 		} catch (e) {

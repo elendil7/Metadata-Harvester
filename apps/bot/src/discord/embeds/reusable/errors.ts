@@ -10,7 +10,7 @@ import {
 import debugPath from '../../../utils/debugPath';
 const LOG = debugPath(__filename);
 
-const errorConstructor = (
+const errorConstructor = async (
 	client: DiscordBot,
 	structure: messageORinteraction,
 	error: Error

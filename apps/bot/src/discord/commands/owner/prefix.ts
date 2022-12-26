@@ -8,6 +8,7 @@ export default class Prefix extends Command {
 		this.aliases = ['prefix', ''];
 		this.group = 'owner';
 		this.permissions = [];
+		this.ownerOnly = true;
 		this.description = '';
 		this.emoji = '';
 	}

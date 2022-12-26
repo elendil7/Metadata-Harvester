@@ -15,7 +15,7 @@ export default class GetLocalChallenge extends Command {
 		this.name = 'getlocalchallenge';
 		this.aliases = ['puzzle', 'challenge', 'getchallenge'];
 		this.group = 'codewars';
-		this.permissions = [''];
+		this.permissions = [];
 		this.description =
 			'This command generates a random codewars challenge.';
 		this.emoji = '🧩';

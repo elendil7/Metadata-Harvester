@@ -8,6 +8,7 @@ export default class Reload extends Command {
 		this.aliases = ['reload', ''];
 		this.group = 'owner';
 		this.permissions = [];
+		this.ownerOnly = true;
 		this.description = '';
 		this.emoji = '🔄';
 	}

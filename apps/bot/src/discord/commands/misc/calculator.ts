@@ -2,7 +2,7 @@ import Command from '../../structures/command';
 import { Message } from 'discord.js';
 import DiscordBot from '../../structures/client';
 import errorConstructor from '../../embeds/reusable/errors';
-import invalidCommandConstructor from '../../embeds/reusable/invalidCommand';
+import { invalidCommandConstructor } from '../../embeds/reusable/invalidCommand';
 import debugPath from '../../../utils/debugPath';
 const LOG = debugPath(__filename);
 
@@ -27,10 +27,18 @@ export default class Calculator extends Command {
 			switch (choice) {
 				case 'eval':
 					const output = await this.evalExpression(expression);
-					message.reply({ content: output });
+					await message.reply({ content: output });
 					break;
 				default:
-					invalidCommandConstructor(client, message, args, this);
+					await message.reply({
+						embeds: [
+							await invalidCommandConstructor(
+								message.author,
+								this
+							),
+						],
+					});
+					break;
 			}
 		} catch (e: any) {
 			errorConstructor(client, message, e);
@@ -49,7 +57,7 @@ export default class Calculator extends Command {
 		operator: string,
 		applyRandomOperation?: boolean,
 		randomNumberMax?: number
-	): Promise<string> {
+	): Promise<void> {
 		try {
 			LOG('Performing calculation');
 			const initialRes = eval(`${a}${operator}${b}`);
@@ -72,7 +80,7 @@ export default class Calculator extends Command {
 				return initialRes;
 			}
 		} catch (e) {
-			return `\nError encountered: ${String(e).split('\n')[0]}\n`;
+			LOG(e);
 		}
 	}
 }

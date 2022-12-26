@@ -12,7 +12,7 @@ export default class TimeTillNext extends Command {
 		this.name = 'timetillnext';
 		this.aliases = ['aoc', 'aoctime'];
 		this.group = 'adventofcode';
-		this.permissions = [''];
+		this.permissions = [];
 		this.description =
 			'Check how much time left till the next AOC challenge.';
 		this.emoji = '🧩';
@@ -30,9 +30,9 @@ export default class TimeTillNext extends Command {
 				args[1]
 			);
 
-			message.reply({ embeds: [embed] });
+			await message.reply({ embeds: [embed] });
 		} catch (e: any) {
-			errorConstructor(client, message, e);
+			await errorConstructor(client, message, e);
 		}
 	}
 }

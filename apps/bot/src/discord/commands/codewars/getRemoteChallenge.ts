@@ -9,7 +9,7 @@ export default class GetRemoteChallenge extends Command {
 		this.name = 'getremotechallenge';
 		this.aliases = ['remote', 'remotechallenge', 'getremotechallenge'];
 		this.group = 'codewars';
-		this.permissions = [''];
+		this.permissions = [];
 		this.description = 'This command fetches remote codewars challenge.';
 		this.emoji = '🧩';
 		this.run = this.run;
