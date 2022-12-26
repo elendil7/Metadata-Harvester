@@ -19,23 +19,40 @@ export default class Help extends Command {
 	}
 	public async run(client: DiscordBot, message: Message, args: string[]) {
 		try {
-			const command = await client.getCommand(args[1]);
+			// if any arguments are passed
+			if (args.length > 0) {
+				// attain and re-sanitize user input
+				const userInput = args[0].trim().toLowerCase();
 
-			// if command exists, send command description embed
-			if (command) {
-				message.reply({
-					embeds: [
-						await helpCommandEmbedConstructor(
-							client,
-							message,
-							command
-						),
-					],
-				});
+				// try to find the command in the client's command collection from the userInput. Store as variable "command" as either a Command object or undefined
+				const command =
+					client.commands.get(userInput) ||
+					client.commands.find((cmd) =>
+						cmd.aliases.includes(userInput)
+					);
+
+				// if command exists, send command description embed
+				if (command) {
+					await message.reply({
+						embeds: [
+							await helpCommandEmbedConstructor(
+								client,
+								message,
+								command
+							),
+						],
+					});
+				}
+				// otherwise print that command does not exist
+				else {
+					await message.reply({
+						content: `Command \`${userInput}\` does not exist`,
+					});
+				}
 			}
 			// otherwise, send the whole help menu to chat
 			else {
-				message.reply({
+				await message.reply({
 					embeds: [
 						await helpCategoryEmbedConstructor(client, message),
 					],
