@@ -3,6 +3,7 @@ import { CommandInteraction } from 'discord.js';
 import invalidSlashCommandConstructor from '../embeds/reusable/invalidSlashCommand';
 import { Symbols } from '../../utils/constants';
 import debugPath from '../../utils/debugPath';
+import { slashCommandHandler } from '../handlers/handler.slash';
 const LOG = debugPath(__filename);
 
 export default {
@@ -14,21 +15,7 @@ export default {
 
 		// try to execute command, catch any errors
 		try {
-			// Only handle slash command interctions (ignore buttons, etc)
-			if (!interaction.isCommand() || !interaction.isChatInputCommand())
-				return;
-
-			// get slash command
-			const command = client.slashCommands.get(interaction.commandName);
-
-			// if command exists, execute it. Otherwise send error embed (invalid slash command)
-			if (command) {
-				await command.run(client, interaction);
-			} else {
-				const invalidSlashCommand =
-					await invalidSlashCommandConstructor(client, interaction);
-				interaction.reply({ embeds: [invalidSlashCommand] });
-			}
+			await slashCommandHandler(client, interaction);
 		} catch (e) {
 			LOG(e);
 			const message = `${Symbols.FAILURE} There was an error while executing this command.`;
