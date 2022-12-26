@@ -1,10 +1,12 @@
+import { PermissionFlagsBits } from 'discord.js';
 import DiscordBot from './client';
 
 export default class Command {
 	public name: string;
 	public aliases: string[];
 	public group: string;
-	public permissions: string[];
+	public permissions: bigint[];
+	public ownerOnly: boolean;
 	public description: string;
 	public emoji: string;
 
@@ -12,7 +14,8 @@ export default class Command {
 		this.name = 'exampleName';
 		this.aliases = ['exampleName1', 'exampleName2'];
 		this.group = 'exampleGroup';
-		this.permissions = ['examplePerm1', 'examplePerm2'];
+		this.permissions = [PermissionFlagsBits.ReadMessageHistory];
+		this.ownerOnly = false;
 		this.description = 'This example command does things.';
 		this.emoji = '🔌';
 		this.run = this.run;

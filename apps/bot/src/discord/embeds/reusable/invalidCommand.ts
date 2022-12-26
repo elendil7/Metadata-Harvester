@@ -1,6 +1,6 @@
 import DiscordBot from '../../structures/client';
 import { EmbedBuilder } from '@discordjs/builders';
-import { Message } from 'discord.js';
+import { Message, User } from 'discord.js';
 import {
 	Symbols,
 	Colour_Codes,
@@ -8,33 +8,22 @@ import {
 } from '../../../utils/constants';
 import Command from '../../structures/command';
 
-const invalidCommandConstructor = (
-	client: DiscordBot,
-	message: Message,
-	args: string[],
+export const invalidCommandConstructor = async (
+	user: User,
 	command: Command
 ) => {
-	const invalidCommandEmbed = new EmbedBuilder()
+	return new EmbedBuilder()
 		.setColor(Colour_Codes.RED)
 		.setTitle(`${Symbols.FAILURE} Invalid Command`)
-		// .setURL('https://discord.js.org/')
-		/* 		.setAuthor({
-			name: `A wild bug has been spotted ${Symbols.BUG}`,
-			iconURL: 'https://hotemoji.com/images/dl/3/bug-emoji-by-google.png',
-			// url: '',
-		}) */
-		// .setThumbnail('https://cdn3.emoji.gg/emojis/cowboybug.png')
-		// .setDescription(`Error content: ${error.message}`)
-		// .setThumbnail('https://i.imgur.com/AfFp7pu.png')
 		.addFields(
 			{
 				name: `Command:`,
-				value: message.content,
+				value: command.name,
 				inline: true,
 			},
 			{
 				name: `Issue:`,
-				value: 'No such command exists',
+				value: 'Command was entered incorrectly.',
 				inline: true,
 			},
 			{
@@ -52,11 +41,39 @@ const invalidCommandConstructor = (
 		)
 		.setTimestamp()
 		.setFooter({
-			text: `User: ${message.author.tag} | ID: ${message.author.id}`,
-			iconURL: message.author.displayAvatarURL({ forceStatic: false }),
+			text: `User: ${user.tag} | ID: ${user.id}`,
+			iconURL: user.displayAvatarURL({ forceStatic: false }),
 		});
-
-	message.reply({ embeds: [invalidCommandEmbed] });
 };
 
-export default invalidCommandConstructor;
+export const unknownCommand = async (user: User, commandName: string) => {
+	// create embed that says command is unknown
+	return new EmbedBuilder()
+		.setColor(Colour_Codes.RED)
+		.setTitle(`${Symbols.FAILURE} Unknown Command`)
+		.addFields(
+			{
+				name: `Command:`,
+				value: '`' + commandName.trim().slice(0, 30) + '`',
+				inline: false,
+			},
+			{
+				name: `Issue:`,
+				value: '`' + 'No such command exists' + '`',
+				inline: false,
+			},
+			{
+				name: `What to do now?`,
+				value:
+					'`' +
+					`Run ${DISCORD_BOT_PREFIX}help command for information on commands.` +
+					'`',
+				inline: false,
+			}
+		)
+		.setTimestamp()
+		.setFooter({
+			text: `User: ${user.tag} | ID: ${user.id}`,
+			iconURL: user.displayAvatarURL({ forceStatic: false }),
+		});
+};
