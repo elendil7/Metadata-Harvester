@@ -27,7 +27,7 @@ export default class TimeTillNext extends Command {
 			let embed = await timeUntilNextAocEmbedConstructor(
 				client,
 				message,
-				args[1]
+				args[0]
 			);
 
 			await message.reply({ embeds: [embed] });

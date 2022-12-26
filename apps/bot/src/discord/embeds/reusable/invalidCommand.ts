@@ -46,7 +46,7 @@ export const invalidCommandConstructor = async (
 		});
 };
 
-export const unknownCommand = async (user: User, commandName: string) => {
+export const unknownCommand = async (user: User, messageContent: string) => {
 	// create embed that says command is unknown
 	return new EmbedBuilder()
 		.setColor(Colour_Codes.RED)
@@ -54,7 +54,7 @@ export const unknownCommand = async (user: User, commandName: string) => {
 		.addFields(
 			{
 				name: `Command:`,
-				value: `\`${commandName.trim().slice(0, 30)}\``,
+				value: `\`${messageContent.trim().slice(0, 30)}\``,
 				inline: false,
 			},
 			{

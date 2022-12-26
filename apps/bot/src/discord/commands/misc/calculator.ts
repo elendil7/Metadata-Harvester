@@ -20,9 +20,9 @@ export default class Calculator extends Command {
 	public async run(client: DiscordBot, message: Message, args: string[]) {
 		try {
 			// get which command user wants to execute
-			const choice = args[1];
+			const choice = args[0];
 			// get expression from args (everything after the command)
-			const expression = args.slice(2).join('');
+			const expression = args.slice(1).join('');
 
 			switch (choice) {
 				case 'eval':

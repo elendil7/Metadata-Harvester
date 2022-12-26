@@ -21,12 +21,14 @@ export async function commandHandler(client: DiscordBot, message: Message) {
 		if (message.content[0] !== DISCORD_BOT_PREFIX) return;
 
 		// get supposed command (message content)
-		const commandName = message.content.replace(DISCORD_BOT_PREFIX, '');
+		const messageContent = message.content.replace(DISCORD_BOT_PREFIX, '');
 		// get command arguments by each indefinite spans of whitespace, then filter empty values out (keep falsy values though - only remove empty strings)
-		const args = commandName.split(/ +/).filter((v) => v !== '');
+		const allArgs = messageContent.split(/ +/).filter((v) => v !== '');
+		// get the only arguments required for the command (remove the command name)
+		const args = allArgs.slice(1);
 
-		// ensure that command is valid even in mixed case / uppercase
-		const potentialCommand = args[0].toLowerCase();
+		// get the potential command, ensure that command is valid even in mixed case / uppercase
+		const potentialCommand = allArgs[0].toLowerCase();
 
 		// get user object
 		const user = message.author;
@@ -95,7 +97,7 @@ export async function commandHandler(client: DiscordBot, message: Message) {
 
 		// if command does not exist
 		await message.reply({
-			embeds: [await unknownCommand(user, commandName)],
+			embeds: [await unknownCommand(user, messageContent)],
 		});
 	} catch (e) {
 		LOG(e);
