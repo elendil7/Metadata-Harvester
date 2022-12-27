@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 import { resolve } from 'path';
 dotenv.config({ path: resolve(__dirname, '..', '.env') });
-import { DISCORD_BOT_TOKEN, Symbols } from './utils/constants';
+import { DISCORD_BOT_TOKEN, Symbols, Text_Art } from './utils/constants';
 import initiateClient from './discord/startDiscordBot';
 
 import debugPath from './utils/debugPath';
@@ -9,6 +9,8 @@ import { sleep } from './utils/sleep';
 const LOG = debugPath(__filename);
 
 const execute = async () => {
+	LOG(`\n${Text_Art.WHEAT}\n`);
+
 	LOG(`<<<${new Date().toUTCString()}>>>`);
 	LOG(`${Symbols.LOADING} Loading program components sequentially...`);
 
