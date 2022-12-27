@@ -27,8 +27,14 @@ export async function commandHandler(client: DiscordBot, message: Message) {
 		// get the only arguments required for the command (remove the command name)
 		const args = allArgs.slice(1);
 
+		// get first argument
+		const firstArg = allArgs[0];
+
+		// if first argument is empty "", return
+		if (!firstArg) return;
+
 		// get the potential command, ensure that command is valid even in mixed case / uppercase
-		const potentialCommand = allArgs[0].toLowerCase();
+		const potentialCommand = firstArg.toLowerCase();
 
 		// get user object
 		const user = message.author;
