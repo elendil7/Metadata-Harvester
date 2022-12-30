@@ -5,10 +5,10 @@ import {
 	DISCORD_GUILD_IDS,
 	REGISTER_GLOBAL_SLASH_COMMANDS,
 	REGISTER_GUILD_SLASH_COMMANDS,
-} from '../utils/constants';
-import { sleep } from '../utils/sleep';
-import debugPath from '../utils/debugPath';
-import DiscordBot from '../discord/structures/client';
+} from '../../utils/constants';
+import { sleep } from '../../utils/sleep';
+import debugPath from '../../utils/debugPath';
+import DiscordBot from '../structures/client';
 const LOG = debugPath(__filename);
 
 const registerSlashCommands = async (

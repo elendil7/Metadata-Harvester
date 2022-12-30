@@ -1,13 +1,13 @@
 import { REST, Routes } from 'discord.js';
-import DiscordBot from '../discord/structures/client';
+import DiscordBot from '../structures/client';
 import {
 	DELETE_GLOBAL_SLASH_COMMANDS,
 	DELETE_GUILD_SLASH_COMMANDS,
 	DISCORD_BOT_ID,
 	DISCORD_BOT_TOKEN,
 	DISCORD_GUILD_IDS,
-} from '../utils/constants';
-import debugPath from '../utils/debugPath';
+} from '../../utils/constants';
+import debugPath from '../../utils/debugPath';
 const LOG = debugPath(__filename);
 
 const deleteSlashCommands = async (client: DiscordBot, commands: string[]) => {
