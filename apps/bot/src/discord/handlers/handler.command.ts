@@ -7,7 +7,6 @@ import {
 } from '../embeds/reusable/inadequatePermissions';
 import { unknownCommand } from '../embeds/reusable/invalidCommand';
 import DiscordBot from '../structures/client';
-import { getUser } from '../utils/compatibility/getUser';
 import { getGuildMember } from '../utils/methods/getGuildMember';
 const LOG = debugPath(__filename);
 
@@ -23,12 +22,10 @@ export async function commandHandler(client: DiscordBot, message: Message) {
 		// get supposed command (message content)
 		const messageContent = message.content.replace(DISCORD_BOT_PREFIX, '');
 		// get command arguments by each indefinite spans of whitespace, then filter empty values out (keep falsy values though - only remove empty strings)
-		const allArgs = messageContent.split(/ +/).filter((v) => v !== '');
-		// get the only arguments required for the command (remove the command name)
-		const args = allArgs.slice(1);
+		const args = messageContent.split(/ +/).filter((v) => v !== '');
 
-		// get first argument
-		const firstArg = allArgs[0];
+		// get first argument & get the only arguments required for the command (remove the command name) simultaneously
+		const firstArg = args.shift();
 
 		// if first argument is empty "", return
 		if (!firstArg) return;

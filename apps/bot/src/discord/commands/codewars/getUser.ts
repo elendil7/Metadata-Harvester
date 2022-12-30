@@ -50,11 +50,11 @@ export default class GetCodewarsUser extends Command {
 				});
 			}
 			// if bad status code
-			else if (typeof userOrStatuscode === 'string') {
+			else {
 				await message.reply({
 					embeds: [
 						await requestFailedEmbedConstructor(
-							userOrStatuscode,
+							String(userOrStatuscode),
 							user
 						),
 					],

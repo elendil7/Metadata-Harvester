@@ -18,24 +18,24 @@ export const invalidCommandConstructor = async (
 		.addFields(
 			{
 				name: `Command:`,
-				value: command.name,
+				value: `\`${command.name}\``,
 				inline: true,
 			},
 			{
 				name: `Issue:`,
-				value: 'Command was entered incorrectly.',
+				value: `\`Command was entered incorrectly.\``,
 				inline: true,
 			},
 			{
 				name: `Proper usage:`,
 				value: command.aliases
-					.map((v) => DISCORD_BOT_PREFIX + v)
+					.map((v) => `\`${DISCORD_BOT_PREFIX + v}\``)
 					.join(', '),
 				inline: true,
 			},
 			{
 				name: `What to do now?`,
-				value: `Run ${DISCORD_BOT_PREFIX}help command for information on commands.`,
+				value: `\`Run ${DISCORD_BOT_PREFIX}help command for information on commands.\``,
 				inline: false,
 			}
 		)

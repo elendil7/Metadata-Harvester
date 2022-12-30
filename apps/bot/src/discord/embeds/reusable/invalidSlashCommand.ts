@@ -17,22 +17,22 @@ const invalidSlashCommandConstructor = async (
 		.addFields(
 			{
 				name: `Slash command:`,
-				value: interaction.commandName,
+				value: `\`${interaction.commandName}\``,
 				inline: true,
 			},
 			{
 				name: `Issue:`,
-				value: 'No such command exists',
+				value: '`No such command exists`',
 				inline: true,
 			},
 			{
 				name: `Proper usage:`,
-				value: `/${interaction.commandName}`,
+				value: `\`/${interaction.commandName}\``,
 				inline: true,
 			},
 			{
 				name: `What to do now?`,
-				value: `Run ${DISCORD_BOT_PREFIX}help command for information on commands.`,
+				value: `\`Run ${DISCORD_BOT_PREFIX}help command for information on commands.\``,
 				inline: false,
 			}
 		)

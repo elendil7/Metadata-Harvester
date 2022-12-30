@@ -1,5 +1,9 @@
 import { EmbedBuilder } from '@discordjs/builders';
-import { Colour_Codes, Status_Codes_Codewars } from '../../../utils/constants';
+import {
+	Colour_Codes,
+	Status_Codes_Codewars,
+	Symbols,
+} from '../../../utils/constants';
 import { User } from 'discord.js';
 
 export const requestFailedEmbedConstructor = async (
@@ -13,21 +17,21 @@ export const requestFailedEmbedConstructor = async (
 
 	return new EmbedBuilder()
 		.setColor(Colour_Codes.RED)
-		.setTitle('Request Failed')
+		.setTitle(`${Symbols.FAILURE} Request Failed`)
 		.addFields(
 			{
 				name: 'Status code:',
-				value: statusCode,
+				value: `\`${statusCode}\``,
 				inline: false,
 			},
 			{
 				name: 'Error',
-				value: issue[0],
+				value: `\`${issue[0]}\``,
 				inline: false,
 			},
 			{
 				name: 'Issue',
-				value: issue[1],
+				value: `\`${issue[1]}\``,
 				inline: false,
 			}
 		)

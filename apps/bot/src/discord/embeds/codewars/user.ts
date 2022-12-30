@@ -1,7 +1,11 @@
 import { EmbedBuilder } from '@discordjs/builders';
 import { User } from 'discord.js';
 import CodewarsUserModel from '../../../api/codewars/v1/models/user/CodewarsUserModel';
-import { Command_Group_Colours, PNG_Links } from '../../../utils/constants';
+import {
+	Command_Group_Colours,
+	PNG_Links,
+	Symbols,
+} from '../../../utils/constants';
 
 export const codewarsUserEmbedConstructor = async (
 	codewarsUser: CodewarsUserModel,
@@ -9,33 +13,38 @@ export const codewarsUserEmbedConstructor = async (
 ) => {
 	const embed = new EmbedBuilder()
 		.setColor(Command_Group_Colours.CODEWARS_COLOUR)
-		.setTitle(`Codewars User: ${codewarsUser.username}`)
+		.setTitle(
+			`${Symbols.BOAR} Codewars User: ${codewarsUser.username} ${Symbols.DUCK}`
+		)
 		.setThumbnail(PNG_Links.CODEWARS_LOGO)
-		// create embed fields for all properties of codewarsUser
 		.addFields(
 			{
 				name: 'Name',
-				value: codewarsUser.name,
+				value: `\`${codewarsUser.name || 'N/A'}\``,
 				inline: true,
 			},
 			{
 				name: 'Honor',
-				value: '' + codewarsUser.honor,
+				value: `\`${'' + codewarsUser.honor || 'N/A'}\``,
 				inline: true,
 			},
 			{
 				name: 'Leaderboard Position',
-				value: String(codewarsUser.leaderboardPosition) || 'N/A',
+				value: `\`${
+					codewarsUser.leaderboardPosition
+						? '#' + codewarsUser.leaderboardPosition
+						: 'N/A'
+				}\``,
 				inline: true,
 			},
 			{
 				name: 'Clan',
-				value: codewarsUser.clan,
+				value: `\`${codewarsUser.clan || 'N/A'}\``,
 				inline: true,
 			},
 			{
 				name: 'Ranks',
-				value: `#${codewarsUser.ranks.overall.rank}, @${codewarsUser.ranks.overall.name}`,
+				value: `\`${codewarsUser.ranks.overall.name || 'N/A'}\``,
 				inline: true,
 			}
 		)
@@ -47,10 +56,12 @@ export const codewarsUserEmbedConstructor = async (
 			}),
 		});
 
-	if (codewarsUser.skills.length > 0) {
+	if (codewarsUser.skills) {
 		embed.addFields({
 			name: 'Skills',
-			value: codewarsUser.skills.join(', '),
+			value:
+				codewarsUser.skills.map((v) => `\`${v}\``).join(', ') ||
+				'`N/A`',
 			inline: true,
 		});
 	}
