@@ -195,6 +195,7 @@ export enum PNG_Links {
 	BUG_COWBOY = 'https://cdn3.emoji.gg/emojis/cowboybug.png',
 	BUG_EVOLUTION = 'https://yaytext.com/static/849ed9f31f0598a4b5c4df1057844e63/31987/bug-emoji.png',
 	ADVENT_OF_CODE = 'https://cdn.dribbble.com/users/6396772/screenshots/14767265/media/fdbae1feee133bdd26342ba7fc0093dc.png',
+	CODEWARS_LOGO = 'https://uploads-ssl.webflow.com/62e95dddfb380a0e61193e7d/6363e7db70db732290fa3db6_logo-256.png',
 }
 
 // Text Art (https://emojicombos.com/wheat-text-art)
@@ -215,3 +216,19 @@ export enum Text_Art {
 ⣿⣿⣿⣿⡄⢹⣿⣿⣿⡇⢰⣿⣿⣿⣿⣿⠁⢸⣿⣿⡿⠿⣧⣤⣶⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣧⣬⣿⣿⣿⣧⣼⣿⣿⣿⣿⣿⣤⣾⣿⣿⣧⣴⣿⣿⣿⣿⣿⣿⣿⣿`,
 }
+
+// * Network Status Codes
+// Codewars
+export const Status_Codes_Codewars = {
+	'200': 'OK -- Successfully retrieved data',
+	'400': 'Bad Request -- Something went wrong',
+	'401': 'Unauthorized -- Your API key is wrong',
+	'403': 'Forbidden -- You do not have permission to access this resource',
+	'404': 'Not Found -- The specified resource could not be found',
+	'405': 'Method Not Allowed -- You tried to access a resource with an invalid method',
+	'406': "Not Acceptable -- You requested a format that isn't json",
+	'422': 'Unprocessable Entity -- Your input failed validation.',
+	'429': "Too Many Requests -- You're making too many API requests.",
+	'500': 'Internal Server Error -- We had a problem with our server. Try again later.',
+	'503': "Service Unavailable -- We're temporarily offline for maintenance. Please try again later.",
+};

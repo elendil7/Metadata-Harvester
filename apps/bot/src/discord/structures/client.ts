@@ -4,8 +4,8 @@ import bootstrapEvents from '../events/!load.events';
 import debugPath from '../../utils/debugPath';
 import { Client, Collection } from 'discord.js';
 import Command from './command';
-import registerSlashCommands from '../../services/register.slash';
-import deleteSlashCommands from '../../services/delete.slash';
+import registerSlashCommands from '../slashcommands/register.slash';
+import deleteSlashCommands from '../slashcommands/delete.slash';
 const LOG = debugPath(__filename);
 
 export default class DiscordBot extends Client {
