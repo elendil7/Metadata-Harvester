@@ -1,0 +1,65 @@
+import LanguageStats from './LanguageStats';
+
+export default interface Languages {
+	// https://docs.codewars.com/languages/
+	c?: LanguageStats;
+	csharp?: LanguageStats;
+	cpp?: LanguageStats;
+	clojure?: LanguageStats;
+	coffeescript?: LanguageStats;
+	coq?: LanguageStats;
+	crystal?: LanguageStats;
+	dart?: LanguageStats;
+	elixir?: LanguageStats;
+	fsharp?: LanguageStats;
+	go?: LanguageStats;
+	groovy?: LanguageStats;
+	haskell?: LanguageStats;
+	java?: LanguageStats;
+	javascript?: LanguageStats;
+	kotlin?: LanguageStats;
+	lean?: LanguageStats;
+	lua?: LanguageStats;
+	nasm?: LanguageStats;
+	php?: LanguageStats;
+	python?: LanguageStats;
+	racket?: LanguageStats;
+	ruby?: LanguageStats;
+	rust?: LanguageStats;
+	scala?: LanguageStats;
+	shell?: LanguageStats;
+	sql?: LanguageStats;
+	swift?: LanguageStats;
+	typescript?: LanguageStats;
+	agda?: LanguageStats;
+	bf?: LanguageStats;
+	cfml?: LanguageStats;
+	cobol?: LanguageStats;
+	commonlisp?: LanguageStats;
+	d?: LanguageStats;
+	elm?: LanguageStats;
+	erlang?: LanguageStats;
+	factor?: LanguageStats;
+	forth?: LanguageStats;
+	fortran?: LanguageStats;
+	haxe?: LanguageStats;
+	idris?: LanguageStats;
+	julia?: LanguageStats;
+	lambdacalculus?: LanguageStats;
+	nim?: LanguageStats;
+	objectivec?: LanguageStats;
+	ocaml?: LanguageStats;
+	pascal?: LanguageStats;
+	perl?: LanguageStats;
+	powershell?: LanguageStats;
+	prolog?: LanguageStats;
+	purescript?: LanguageStats;
+	r?: LanguageStats;
+	raku?: LanguageStats;
+	reason?: LanguageStats;
+	riscv?: LanguageStats;
+	solidity?: LanguageStats;
+	vbnet?: LanguageStats;
+}
+
+// console.log(LanguageStats);
