@@ -16,6 +16,8 @@ export async function commandHandler(client: DiscordBot, message: Message) {
 		if (!message.guild) return;
 		// ignore other bots
 		if (message.author.bot) return;
+		// message contains embeds, return
+		if (message.embeds.length > 0) return;
 		// ignore if prefix not correct
 		if (message.content[0] !== DISCORD_BOT_PREFIX) return;
 
