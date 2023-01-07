@@ -3,7 +3,7 @@ import debugPath from '../utils/debugPath';
 import DiscordBot from './structures/client';
 const LOG = debugPath(__filename);
 
-const initiateClient = async () => {
+const initiateClient = () => {
 	try {
 		// create new instance of DiscordBot (extension of fundamental Client class)
 		LOG('Starting Discord bot...');
