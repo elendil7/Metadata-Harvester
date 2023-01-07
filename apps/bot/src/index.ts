@@ -3,52 +3,81 @@ import { resolve } from 'path';
 dotenv.config({ path: resolve(__dirname, '..', '.env') });
 import { DISCORD_BOT_TOKEN, Symbols, Text_Art } from './utils/constants';
 import initiateClient from './discord/startDiscordBot';
-
 import debugPath from './utils/debugPath';
-import { sleep } from './utils/sleep';
+import StartServices from './services/startServices';
+import Services from './services/cache/Services';
+import DiscordBot from './discord/structures/client';
+import { MongoClient } from 'mongodb';
+import { Browser } from 'puppeteer';
 const LOG = debugPath(__filename);
 
-const execute = async () => {
-	LOG(`\n${Text_Art.WHEAT}\n`);
+LOG(`\n${Text_Art.WHEAT}\n`);
 
-	LOG(`<<<${new Date().toUTCString()}>>>`);
-	LOG(`${Symbols.LOADING} Loading program components sequentially...`);
+LOG(`<<<${new Date().toUTCString()}>>>`);
+LOG(`${Symbols.LOADING} Loading program components sequentially...`);
 
-	// * Full discord bot initialization
-	/* 
+// * Full discord bot initialization
+/* 
         - Discord bot (client, commands, events)
         - Databases
         - API (server)
     */
 
+// define variables for later export
+let discordBot: DiscordBot | undefined;
+let mongodb: MongoClient;
+let puppeteerBrowser: Browser;
+
+const execute = async () => {
 	// initiate instance of DiscordBot
-	const discordBot = await initiateClient();
-	// quit if no discord bot found, quit
-	if (!discordBot) {
-		LOG('Failed to load discord bot');
-		return;
+	discordBot = initiateClient();
+
+	// if discord bot is found, continue
+	if (discordBot) {
+		// load services, step by step
+		const startServices = new StartServices();
+		// mongodb
+		mongodb = await startServices.startMongoDB();
+		// create puppeteer browser instance
+		puppeteerBrowser = await startServices.startPuppeteer();
+
+		// Cache the services
+		const cachedServices = new Services(
+			discordBot,
+			mongodb,
+			puppeteerBrowser
+		);
+
+		// load events
+		await discordBot.loadEvents('events');
+
+		// load normal commands
+		await discordBot.loadCommands('commands');
+
+		// load slash commands
+		await discordBot.loadCommands('slashcommands');
+
+		// register new/updated slash commands using Discord REST API (if config option set to true)
+		await discordBot.registerSlashCommands();
+
+		// start discord bot (with partials, intents, and cache)
+		await discordBot.start(DISCORD_BOT_TOKEN);
+
+		// wait before performing next action (without blocking main event loop thread); as slash commands can only be deleted after Client's ready event triggered.
+		discordBot.once('ready', () => {
+			// delete slash commands using Discord REST API (if config option set to true)
+			if (discordBot) discordBot.deleteSlashCommands();
+		});
+
+		LOG(`${Symbols.SUCCESS} Program successfully loaded!`);
 	}
-
-	// load events
-	await discordBot.loadEvents('events');
-
-	// load normal commands
-	await discordBot.loadCommands('commands');
-
-	// load slash commands
-	await discordBot.loadCommands('slashcommands');
-
-	// register new/updated slash commands using Discord REST API (if config option set to true)
-	await discordBot.registerSlashCommands();
-
-	// start discord bot (with partials, intents, and cache)
-	await discordBot.start(DISCORD_BOT_TOKEN);
-
-	await sleep(3); // wait before performing next action; slash commands can only be deleted after Client's ready event triggered.
-	// delete slash commands using Discord REST API (if config option set to true)
-	await discordBot.deleteSlashCommands();
-
-	LOG(`${Symbols.SUCCESS} Program successfully loaded!`);
+	// quit if no discord bot found
+	else {
+		LOG('Failed to load discord bot');
+	}
 };
 
 execute();
+
+// export clients as singletons for use globally
+export { discordBot, mongodb, puppeteerBrowser };
