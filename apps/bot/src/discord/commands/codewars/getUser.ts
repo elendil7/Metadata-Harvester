@@ -2,12 +2,12 @@ import Command from '../../structures/command';
 import DiscordBot from '../../structures/client';
 import { Message } from 'discord.js';
 import { fetchUser } from '../../../api/codewars/v1/routes/fetchUser';
-import CodewarsUserModel from '../../../api/codewars/v1/models/user/CodewarsUserModel';
 import debugPath from '../../../utils/debugPath';
 import { requestFailedEmbedConstructor } from '../../embeds/api/requestFailed';
 import { getUser } from '../../utils/compatibility/getUser';
 import { codewarsUserEmbedConstructor } from '../../embeds/codewars/user';
 import { invalidCommandConstructor } from '../../embeds/reusable/invalidCommand';
+import CodewarsUserModel from '../../../api/codewars/v1/models/user/CodewarsUserModel';
 const LOG = debugPath(__filename);
 
 export default class GetCodewarsUser extends Command {

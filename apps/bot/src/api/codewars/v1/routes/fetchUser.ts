@@ -1,6 +1,6 @@
 import { request } from 'undici';
-import CodewarsUserModel from '../models/user/CodewarsUserModel';
 import debugPath from '../../../../utils/debugPath';
+import CodewarsUserModel from '../models/user/CodewarsUserModel';
 const LOG = debugPath(__filename);
 
 export const fetchUser = async (usernameOrID: string) => {
@@ -8,11 +8,10 @@ export const fetchUser = async (usernameOrID: string) => {
 		const { statusCode, body } = await request(
 			`https://www.codewars.com/api/v1/users/${usernameOrID}`
 		);
-		const user: CodewarsUserModel = new CodewarsUserModel(
-			await body.json()
-		);
 
-		return statusCode === 200 ? user : statusCode;
+		return statusCode === 200
+			? new CodewarsUserModel(await body.json())
+			: statusCode;
 	} catch (e) {
 		LOG(e);
 	}

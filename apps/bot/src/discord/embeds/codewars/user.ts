@@ -1,6 +1,7 @@
 import { EmbedBuilder } from '@discordjs/builders';
 import { User } from 'discord.js';
 import CodewarsUserModel from '../../../api/codewars/v1/models/user/CodewarsUserModel';
+import { fetchUserImage } from '../../../services/puppeteer/codewars/fetchUserImage';
 import {
 	Command_Group_Colours,
 	PNG_Links,
@@ -16,11 +17,20 @@ export const codewarsUserEmbedConstructor = async (
 		.setTitle(
 			`${Symbols.BOAR} Codewars User: ${codewarsUser.username} ${Symbols.DUCK}`
 		)
-		.setThumbnail(PNG_Links.CODEWARS_LOGO)
 		.addFields(
+			{
+				name: 'Username',
+				value: `\`${codewarsUser.username || 'N/A'}\``,
+				inline: true,
+			},
 			{
 				name: 'Name',
 				value: `\`${codewarsUser.name || 'N/A'}\``,
+				inline: true,
+			},
+			{
+				name: 'ID',
+				value: `\`${codewarsUser.id || 'N/A'}\``,
 				inline: true,
 			},
 			{
@@ -29,7 +39,7 @@ export const codewarsUserEmbedConstructor = async (
 				inline: true,
 			},
 			{
-				name: 'Leaderboard Position',
+				name: 'Leaderboard',
 				value: `\`${
 					codewarsUser.leaderboardPosition
 						? '#' + codewarsUser.leaderboardPosition
@@ -43,7 +53,7 @@ export const codewarsUserEmbedConstructor = async (
 				inline: true,
 			},
 			{
-				name: 'Ranks',
+				name: 'Rank',
 				value: `\`${codewarsUser.ranks.overall.name || 'N/A'}\``,
 				inline: true,
 			}
@@ -65,6 +75,10 @@ export const codewarsUserEmbedConstructor = async (
 			inline: true,
 		});
 	}
+
+	// get user's profile picture. If image exists, set it as the embed's thumbnail image. Else user default avatar, or codewars image
+	const userIconURL = await fetchUserImage(codewarsUser.username);
+	if (userIconURL) embed.setThumbnail(userIconURL || PNG_Links.CODEWARS_LOGO);
 
 	return embed;
 };
