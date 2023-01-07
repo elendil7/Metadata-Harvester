@@ -24,6 +24,11 @@ export const DELETE_GLOBAL_SLASH_COMMANDS = getEnv(
 	'DELETE_GLOBAL_SLASH_COMMANDS'
 );
 
+// * DB
+// Mongo
+export const MONGO_HOSTNAME = getEnv('MONGO_HOSTNAME');
+export const MONGO_PORT = getEnv('MONGO_PORT');
+
 // Permissions
 export const Discord_Permissions = {
 	'1': 'CREATE_INSTANT_INVITE',
