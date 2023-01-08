@@ -4,7 +4,7 @@
 	"description": "A discord bot with various functionalities.",
 	"main": "./src/index.ts",
 	"scripts": {
-		"build": "tsc",
+		"build": "pm2 start src/index.ts --name metadata-harvester --update-env --log src/data/logs/pm2/ --watch --ignore-watch=src/node_modules/",
 		"dev": "nodemon src/index.ts --watch src --ignore data/ --ignore tests/ --ignore media/"
 	},
 	"author": "Aragorn Elessar",
