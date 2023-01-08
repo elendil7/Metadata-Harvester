@@ -5,7 +5,7 @@ import {
 	PNG_Links,
 	Symbols,
 } from '../../../utils/constants';
-import DiscordBot from '../../structures/client';
+import DiscordBot from '../../structures/DiscordBot';
 import { getUser } from '../../utils/compatibility/getUser';
 
 const timeUntilNextAocEmbedConstructor = async (

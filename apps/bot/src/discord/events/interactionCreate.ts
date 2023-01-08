@@ -1,9 +1,9 @@
-import DiscordBot from '../structures/client';
+import DiscordBot from '../structures/DiscordBot';
 import { CommandInteraction } from 'discord.js';
 import invalidSlashCommandConstructor from '../embeds/reusable/invalidSlashCommand';
 import { Symbols } from '../../utils/constants';
 import debugPath from '../../utils/debugPath';
-import { slashCommandHandler } from '../handlers/handler.slash';
+import { slashCommandHandler } from '../handlers/command/handler.slash';
 const LOG = debugPath(__filename);
 
 export default {

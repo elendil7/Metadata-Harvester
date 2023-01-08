@@ -1,5 +1,5 @@
-import Command from '../../structures/command';
-import DiscordBot from '../../structures/client';
+import Command from '../../structures/Command';
+import DiscordBot from '../../structures/DiscordBot';
 import { Message } from 'discord.js';
 import { fetchUser } from '../../../api/codewars/v1/routes/fetchUser';
 import debugPath from '../../../utils/debugPath';

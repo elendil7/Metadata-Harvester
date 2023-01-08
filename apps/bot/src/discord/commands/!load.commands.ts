@@ -1,5 +1,5 @@
 import debugPath from '../../utils/debugPath';
-import DiscordBot from '../structures/client';
+import DiscordBot from '../structures/DiscordBot';
 import { getCommands } from '../utils/methods/getFiles';
 const LOG = debugPath(__filename);
 

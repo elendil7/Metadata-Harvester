@@ -1,4 +1,4 @@
-import DiscordBot from '../../structures/client';
+import DiscordBot from '../../structures/DiscordBot';
 import { EmbedBuilder } from '@discordjs/builders';
 import {
 	Symbols,

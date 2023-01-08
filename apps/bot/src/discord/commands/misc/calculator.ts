@@ -1,6 +1,6 @@
-import Command from '../../structures/command';
+import Command from '../../structures/Command';
 import { Message } from 'discord.js';
-import DiscordBot from '../../structures/client';
+import DiscordBot from '../../structures/DiscordBot';
 import errorConstructor from '../../embeds/reusable/errors';
 import { invalidCommandConstructor } from '../../embeds/reusable/invalidCommand';
 import debugPath from '../../../utils/debugPath';

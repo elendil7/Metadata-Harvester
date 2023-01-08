@@ -3,7 +3,7 @@ import {
 	messageORinteraction,
 	userORclientuser,
 } from '../../../utils/constants';
-import DiscordBot from '../../structures/client';
+import DiscordBot from '../../structures/DiscordBot';
 
 // get User
 export const getUser = async (

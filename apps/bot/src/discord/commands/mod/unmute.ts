@@ -1,4 +1,4 @@
-import Command from '../../structures/command';
+import Command from '../../structures/Command';
 import { Client, Message } from 'discord.js';
 
 export default class Unmute extends Command {

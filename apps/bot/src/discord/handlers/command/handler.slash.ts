@@ -1,7 +1,7 @@
 import { CommandInteraction } from 'discord.js';
-import debugPath from '../../utils/debugPath';
-import invalidSlashCommandConstructor from '../embeds/reusable/invalidSlashCommand';
-import DiscordBot from '../structures/client';
+import debugPath from '../../../utils/debugPath';
+import invalidSlashCommandConstructor from '../../embeds/reusable/invalidSlashCommand';
+import DiscordBot from '../../structures/DiscordBot';
 const LOG = debugPath(__filename);
 
 export async function slashCommandHandler(

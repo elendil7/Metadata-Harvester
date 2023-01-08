@@ -1,4 +1,4 @@
-import DiscordBot from '../structures/client';
+import DiscordBot from '../structures/DiscordBot';
 import { Symbols } from '../../utils/constants';
 import debugPath from '../../utils/debugPath';
 const LOG = debugPath(__filename);

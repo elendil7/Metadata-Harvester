@@ -1,5 +1,5 @@
 import { PermissionFlagsBits } from 'discord.js';
-import DiscordBot from './client';
+import DiscordBot from './DiscordBot';
 
 export default class Command {
 	public name: string;
@@ -8,7 +8,8 @@ export default class Command {
 	public permissions: bigint[];
 	public ownerOnly: boolean;
 	public description: string;
-	public emoji: string;
+	public emoji?: string;
+	public cooldown?: number;
 
 	constructor() {
 		this.name = 'exampleName';
@@ -18,6 +19,7 @@ export default class Command {
 		this.ownerOnly = false;
 		this.description = 'This example command does things.';
 		this.emoji = '🔌';
+		this.cooldown = 2; // seconds
 		this.run = this.run;
 	}
 

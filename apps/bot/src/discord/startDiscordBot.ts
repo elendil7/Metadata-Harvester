@@ -1,6 +1,6 @@
 import { Partials, Options } from 'discord.js';
 import debugPath from '../utils/debugPath';
-import DiscordBot from './structures/client';
+import DiscordBot from './structures/DiscordBot';
 const LOG = debugPath(__filename);
 
 const initiateClient = () => {

@@ -1,6 +1,6 @@
 import { EmbedBuilder } from '@discordjs/builders';
 import { Message } from 'discord.js';
-import DiscordBot from '../../structures/client';
+import DiscordBot from '../../structures/DiscordBot';
 import {
 	Colour_Codes,
 	messageORinteraction,

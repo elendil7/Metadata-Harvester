@@ -2,7 +2,7 @@ import { EmbedBuilder } from '@discordjs/builders';
 import { GuildMember, User } from 'discord.js';
 import { Colour_Codes, messageORinteraction } from '../../../utils/constants';
 import getElapsedHoursMinsSecs from '../../../utils/date';
-import DiscordBot from '../../structures/client';
+import DiscordBot from '../../structures/DiscordBot';
 import { getUser } from '../../utils/compatibility/getUser';
 import getUserBanner from '../../utils/methods/getUserBanner';
 

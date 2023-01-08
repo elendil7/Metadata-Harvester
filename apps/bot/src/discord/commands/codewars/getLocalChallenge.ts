@@ -1,5 +1,5 @@
-import Command from '../../structures/command';
-import DiscordBot from '../../structures/client';
+import Command from '../../structures/Command';
+import DiscordBot from '../../structures/DiscordBot';
 import { Message } from 'discord.js';
 import { Map } from 'typescript';
 import { readdirSync, readFileSync } from 'fs';

@@ -6,7 +6,7 @@ import initiateClient from './discord/startDiscordBot';
 import debugPath from './utils/debugPath';
 import StartServices from './services/startServices';
 import Services from './services/cache/Services';
-import DiscordBot from './discord/structures/client';
+import DiscordBot from './discord/structures/DiscordBot';
 import { MongoClient } from 'mongodb';
 import { Browser } from 'puppeteer';
 const LOG = debugPath(__filename);

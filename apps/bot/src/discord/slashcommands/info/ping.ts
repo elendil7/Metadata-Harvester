@@ -1,6 +1,6 @@
 import { CommandInteraction } from 'discord.js';
-import DiscordBot from '../../structures/client';
-import { SlashCommand } from '../../structures/slashcommand';
+import DiscordBot from '../../structures/DiscordBot';
+import { SlashCommand } from '../../structures/SlashCommand';
 import pingEmbededConstructor from '../../embeds/info/ping';
 import debugPath from '../../../utils/debugPath';
 const LOG = debugPath(__filename);

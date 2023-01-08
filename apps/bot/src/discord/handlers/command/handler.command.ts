@@ -1,13 +1,14 @@
 import { Message } from 'discord.js';
-import { DISCORD_BOT_PREFIX, DISCORD_OWNER_ID } from '../../utils/constants';
-import debugPath from '../../utils/debugPath';
+import { DISCORD_BOT_PREFIX, DISCORD_OWNER_ID } from '../../../utils/constants';
+import debugPath from '../../../utils/debugPath';
 import {
 	inadequatePermissionsEmbedConstructor,
 	ownerOnlyEmbedConstructor,
-} from '../embeds/reusable/inadequatePermissions';
-import { unknownCommand } from '../embeds/reusable/invalidCommand';
-import DiscordBot from '../structures/client';
-import { getGuildMember } from '../utils/methods/getGuildMember';
+} from '../../embeds/reusable/inadequatePermissions';
+import { unknownCommand } from '../../embeds/reusable/invalidCommand';
+import DiscordBot from '../../structures/DiscordBot';
+import { getGuildMember } from '../../utils/methods/getGuildMember';
+import { commandCooldownHandler } from '../cooldown/handler.command.cooldown';
 const LOG = debugPath(__filename);
 
 export async function commandHandler(client: DiscordBot, message: Message) {
@@ -44,8 +45,12 @@ export async function commandHandler(client: DiscordBot, message: Message) {
 
 			// if user entered a valid command
 			if (cCmd.aliases.includes(potentialCommand)) {
+				// cooldown implementation (if command has a cooldown)
+				if (cCmd.cooldown) {
+					await commandCooldownHandler(cCmd, user);
+				}
 				// if command can only be run by owner, and command creator is not the owner
-				if (cCmd.ownerOnly && user.id !== DISCORD_OWNER_ID) {
+				else if (cCmd.ownerOnly && user.id !== DISCORD_OWNER_ID) {
 					await message.reply({
 						embeds: [await ownerOnlyEmbedConstructor(cCmd, user)],
 					});

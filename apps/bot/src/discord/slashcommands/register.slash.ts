@@ -8,7 +8,7 @@ import {
 } from '../../utils/constants';
 import { sleep } from '../../utils/sleep';
 import debugPath from '../../utils/debugPath';
-import DiscordBot from '../structures/client';
+import DiscordBot from '../structures/DiscordBot';
 const LOG = debugPath(__filename);
 
 const registerSlashCommands = async (

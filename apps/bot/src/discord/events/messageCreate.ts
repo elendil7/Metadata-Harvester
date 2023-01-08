@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
-import DiscordBot from '../structures/client';
+import DiscordBot from '../structures/DiscordBot';
 import errorConstructor from '../embeds/reusable/errors';
-import { commandHandler } from '../handlers/handler.command';
+import { commandHandler } from '../handlers/command/handler.command';
 
 export default {
 	name: 'messageCreate',

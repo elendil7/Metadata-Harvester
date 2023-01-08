@@ -1,6 +1,6 @@
 import { CommandInteraction } from 'discord.js';
-import DiscordBot from '../../structures/client';
-import { SlashCommand } from '../../structures/slashcommand';
+import DiscordBot from '../../structures/DiscordBot';
+import { SlashCommand } from '../../structures/SlashCommand';
 import whoisConstructor from '../../embeds/info/whois';
 import debugPath from '../../../utils/debugPath';
 import errorConstructor from '../../embeds/reusable/errors';

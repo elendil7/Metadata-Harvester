@@ -1,7 +1,7 @@
 import { EmbedBuilder } from '@discordjs/builders';
 import { Message } from 'discord.js';
 import { Colour_Codes } from '../../../utils/constants';
-import DiscordBot from '../../structures/client';
+import DiscordBot from '../../structures/DiscordBot';
 import { Symbols } from '../../../utils/constants';
 
 const codewarsChallengeConstruction = (

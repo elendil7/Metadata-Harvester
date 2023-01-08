@@ -2,8 +2,8 @@ import { Message } from 'discord.js';
 import debugPath from '../../../utils/debugPath';
 import timeUntilNextAocEmbedConstructor from '../../embeds/adventofcode/timeTillNext';
 import errorConstructor from '../../embeds/reusable/errors';
-import DiscordBot from '../../structures/client';
-import Command from '../../structures/command';
+import DiscordBot from '../../structures/DiscordBot';
+import Command from '../../structures/Command';
 const LOG = debugPath(__filename);
 
 export default class TimeTillNext extends Command {

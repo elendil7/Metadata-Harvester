@@ -3,7 +3,7 @@ import bootstrapCommands from '../commands/!load.commands';
 import bootstrapEvents from '../events/!load.events';
 import debugPath from '../../utils/debugPath';
 import { Client, Collection } from 'discord.js';
-import Command from './command';
+import Command from './Command';
 import registerSlashCommands from '../slashcommands/register.slash';
 import deleteSlashCommands from '../slashcommands/delete.slash';
 const LOG = debugPath(__filename);

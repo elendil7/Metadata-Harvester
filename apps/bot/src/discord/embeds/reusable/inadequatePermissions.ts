@@ -6,7 +6,7 @@ import {
 	Discord_Permissions,
 	Symbols,
 } from '../../../utils/constants';
-import Command from '../../structures/command';
+import Command from '../../structures/Command';
 
 export const inadequatePermissionsEmbedConstructor = async (
 	command: Command,

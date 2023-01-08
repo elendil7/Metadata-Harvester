@@ -1,5 +1,5 @@
 import { REST, Routes } from 'discord.js';
-import DiscordBot from '../structures/client';
+import DiscordBot from '../structures/DiscordBot';
 import {
 	DELETE_GLOBAL_SLASH_COMMANDS,
 	DELETE_GUILD_SLASH_COMMANDS,

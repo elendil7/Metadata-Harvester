@@ -1,4 +1,4 @@
-import DiscordBot from './client';
+import DiscordBot from './DiscordBot';
 import {
 	ApplicationCommandOption,
 	ApplicationCommandType,

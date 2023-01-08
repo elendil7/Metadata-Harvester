@@ -1,4 +1,4 @@
-import DiscordBot from '../../structures/client';
+import DiscordBot from '../../structures/DiscordBot';
 import { EmbedBuilder } from '@discordjs/builders';
 import { Message, User } from 'discord.js';
 import {
@@ -6,7 +6,7 @@ import {
 	Colour_Codes,
 	DISCORD_BOT_PREFIX,
 } from '../../../utils/constants';
-import Command from '../../structures/command';
+import Command from '../../structures/Command';
 
 export const invalidCommandConstructor = async (
 	user: User,

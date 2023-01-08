@@ -1,6 +1,6 @@
 import { CommandInteraction, Guild, Message } from 'discord.js';
 import { messageORinteraction } from '../../../utils/constants';
-import DiscordBot from '../../structures/client';
+import DiscordBot from '../../structures/DiscordBot';
 
 export const getGuild = async (
 	client: DiscordBot,

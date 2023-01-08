@@ -1,4 +1,4 @@
-import DiscordBot from '../../discord/structures/client';
+import DiscordBot from '../../discord/structures/DiscordBot';
 import { MongoClient } from 'mongodb';
 import { Browser } from 'puppeteer';
 
