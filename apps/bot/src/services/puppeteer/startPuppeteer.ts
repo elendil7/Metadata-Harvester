@@ -40,6 +40,7 @@ export const startPuppeteerService = async (): Promise<Browser> => {
 		'--password-store=basic',
 		'--use-gl=swiftshader',
 		'--use-mock-keychain',
+		'--wait-for-browser',
 		// '--window-size=1920,1080', // set browser window size
 	];
 
