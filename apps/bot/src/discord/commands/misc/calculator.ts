@@ -46,9 +46,8 @@ export default class Calculator extends Command {
 	}
 
 	private async evalExpression(expression: string): Promise<string> {
-		return expression
-			? `${expression} = ${eval(expression)}`
-			: `Invalid expression`;
+		return 'Work in progress.';
+		// return expression ? `${expression} = ${eval(expression)}` : `Invalid expression`;
 	}
 
 	private async evalTwoNumbers(
