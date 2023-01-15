@@ -18,6 +18,8 @@ export default class GetLocalChallenge extends Command {
 		this.permissions = [];
 		this.description = 'Fetches a random codewars challenge';
 		this.emoji = '🧩';
+		this.cooldown = 20000;
+		// exclusive to this command only
 		this.challengeNames = new Array<string>();
 	}
 

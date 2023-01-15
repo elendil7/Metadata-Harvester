@@ -14,7 +14,7 @@ export default class Ping extends Command {
 		this.permissions = [];
 		this.description = 'Gets bot latency (ping) in ms';
 		this.emoji = '🏓';
-		this.cooldown = 2;
+		this.cooldown = 4000;
 	}
 	public async run(client: DiscordBot, message: Message) {
 		try {
