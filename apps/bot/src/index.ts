@@ -9,6 +9,7 @@ import Services from './services/cache/Services';
 import DiscordBot from './discord/structures/DiscordBot';
 import { MongoClient } from 'mongodb';
 import { Browser } from 'puppeteer';
+import CooldownManager from './discord/structures/CooldownManager';
 const LOG = debugPath(__filename);
 
 LOG(`\n${Text_Art.WHEAT}\n`);
@@ -25,6 +26,7 @@ LOG(`${Symbols.LOADING} Loading program components sequentially...`);
 
 // define variables for later export
 let discordBot: DiscordBot | undefined;
+let cooldownManager: CooldownManager;
 let mongodb: MongoClient;
 let puppeteerBrowser: Browser;
 
@@ -34,6 +36,9 @@ const execute = async () => {
 
 	// if discord bot is found, continue
 	if (discordBot) {
+		// load command cooldowns
+		cooldownManager = await discordBot.loadCooldowns();
+
 		// load services, step by step
 		const startServices = new StartServices();
 		// mongodb
@@ -41,15 +46,12 @@ const execute = async () => {
 		// create puppeteer browser instance
 		puppeteerBrowser = await startServices.startPuppeteer();
 
-		// Cache the services
+		/* 		// Cache the services
 		const cachedServices = new Services(
 			discordBot,
 			mongodb,
 			puppeteerBrowser
-		);
-
-		// load events
-		await discordBot.loadEvents('events');
+		); */
 
 		// load normal commands
 		await discordBot.loadCommands('commands');
@@ -69,6 +71,9 @@ const execute = async () => {
 			if (discordBot) discordBot.deleteSlashCommands();
 		});
 
+		// load events
+		await discordBot.loadEvents('events');
+
 		LOG(`${Symbols.SUCCESS} Program successfully loaded!`);
 	}
 	// quit if no discord bot found
@@ -79,5 +84,5 @@ const execute = async () => {
 
 execute();
 
-// export clients as singletons for use globally
-export { discordBot, mongodb, puppeteerBrowser };
+// export clients / managers as singletons for use globally
+export { discordBot, cooldownManager, mongodb, puppeteerBrowser };
