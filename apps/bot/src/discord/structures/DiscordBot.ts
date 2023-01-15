@@ -6,6 +6,7 @@ import { Client, Collection } from 'discord.js';
 import Command from './Command';
 import registerSlashCommands from '../slashcommands/register.slash';
 import deleteSlashCommands from '../slashcommands/delete.slash';
+import CooldownManager from './CooldownManager';
 const LOG = debugPath(__filename);
 
 export default class DiscordBot extends Client {
@@ -32,11 +33,11 @@ export default class DiscordBot extends Client {
 		}
 	}
 
-	public async loadEvents(searchDir: string) {
+	public async loadCooldowns(): Promise<CooldownManager> {
 		try {
-			await bootstrapEvents(this, searchDir);
+			return new CooldownManager();
 		} catch (e) {
-			LOG(e);
+			throw LOG(e);
 		}
 	}
 
@@ -71,7 +72,15 @@ export default class DiscordBot extends Client {
 		}
 	}
 
-	public async getCommand(commandName: string) {
+	public async loadEvents(searchDir: string) {
+		try {
+			await bootstrapEvents(this, searchDir);
+		} catch (e) {
+			LOG(e);
+		}
+	}
+
+	public getCommand(commandName: string) {
 		try {
 			return this.commands.get(commandName);
 		} catch (e) {
