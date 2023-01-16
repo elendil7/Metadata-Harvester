@@ -1,4 +1,5 @@
 import { PermissionFlagsBits } from 'discord.js';
+import { DEFAULT_COOLDOWN_TIME } from '../../utils/constants';
 import DiscordBot from './DiscordBot';
 
 export default class Command {
@@ -19,7 +20,7 @@ export default class Command {
 		this.ownerOnly = false;
 		this.description = 'This example command does things.';
 		this.emoji = '🔌';
-		this.cooldown = 2; // seconds
+		this.cooldown = parseInt(DEFAULT_COOLDOWN_TIME); // default cooldown = 2 seconds = 2000 milliseconds
 		this.run = this.run;
 	}
 
