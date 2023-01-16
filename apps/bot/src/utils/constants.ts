@@ -9,20 +9,23 @@ export const DISCORD_BOT_PREFIX = getEnv('DISCORD_BOT_PREFIX');
 export const DISCORD_OWNER_ID = getEnv('DISCORD_OWNER_ID');
 
 export const DISCORD_GUILD_IDS = getEnv('DISCORD_GUILD_IDS');
-// register slash commands
+// register slash commands booleans
 export const REGISTER_GUILD_SLASH_COMMANDS = getEnv(
 	'REGISTER_GUILD_SLASH_COMMANDS'
 );
 export const REGISTER_GLOBAL_SLASH_COMMANDS = getEnv(
 	'REGISTER_GLOBAL_SLASH_COMMANDS'
 );
-// delete slash commands
+// delete slash commands booleans
 export const DELETE_GUILD_SLASH_COMMANDS = getEnv(
 	'DELETE_GUILD_SLASH_COMMANDS'
 );
 export const DELETE_GLOBAL_SLASH_COMMANDS = getEnv(
 	'DELETE_GLOBAL_SLASH_COMMANDS'
 );
+
+// defaults
+export const DEFAULT_COOLDOWN_TIME = getEnv('DEFAULT_COOLDOWN_TIME');
 
 // * DB
 // Mongo
