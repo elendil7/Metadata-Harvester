@@ -29,7 +29,7 @@ const helpSlashCommand = {
 	},
 	run: async (client: DiscordBot, interaction: CommandInteraction) => {
 		try {
-			const command = await client.getCommand(
+			const command = client.getCommand(
 				String(interaction.options.get('command')?.value)
 			);
 

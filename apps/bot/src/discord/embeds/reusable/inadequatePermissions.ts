@@ -8,7 +8,7 @@ import {
 } from '../../../utils/constants';
 import Command from '../../structures/Command';
 
-export const inadequatePermissionsEmbedConstructor = async (
+export const inadequatePermissionsEmbedConstructor = (
 	command: Command,
 	user: User,
 	missingPermissions: bigint[]
@@ -72,10 +72,7 @@ export const inadequatePermissionsEmbedConstructor = async (
 		});
 };
 
-export const ownerOnlyEmbedConstructor = async (
-	command: Command,
-	user: User
-) => {
+export const ownerOnlyEmbedConstructor = (command: Command, user: User) => {
 	return new EmbedBuilder()
 		.setColor(Colour_Codes.RED)
 		.setTitle(`${Symbols.FAILURE} Inadequate Permissions`)
