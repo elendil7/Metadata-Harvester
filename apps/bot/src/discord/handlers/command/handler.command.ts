@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { EmbedBuilder, Message } from 'discord.js';
 import { DISCORD_BOT_PREFIX, DISCORD_OWNER_ID } from '../../../utils/constants';
 import debugPath from '../../../utils/debugPath';
 import {
@@ -17,10 +17,10 @@ export async function commandHandler(client: DiscordBot, message: Message) {
 		if (!message.guild) return;
 		// ignore other bots
 		if (message.author.bot) return;
-		// message contains embeds, return
+		// ignore messages that contain embeds
 		if (message.embeds.length > 0) return;
 		// ignore if prefix not correct
-		if (message.content[0] !== DISCORD_BOT_PREFIX) return;
+		if (message.content.trim()[0] !== DISCORD_BOT_PREFIX) return;
 
 		// get supposed command (message content)
 		const messageContent = message.content.replace(DISCORD_BOT_PREFIX, '');
@@ -39,76 +39,88 @@ export async function commandHandler(client: DiscordBot, message: Message) {
 		// get user object
 		const user = message.author;
 
+		// define command
+		let command;
+
 		// if message content includes command name, execute the "run" method on that command
 		for (const [cName, cCmd] of client.commands) {
-			// console.log(cName, cObj);
-
-			// if user entered a valid command
 			if (cCmd.aliases.includes(potentialCommand)) {
-				// cooldown implementation (if command has a cooldown)
-				if (cCmd.cooldown) {
-					await commandCooldownHandler(cCmd, user);
-				}
-				// if command can only be run by owner, and command creator is not the owner
-				else if (cCmd.ownerOnly && user.id !== DISCORD_OWNER_ID) {
-					await message.reply({
-						embeds: [await ownerOnlyEmbedConstructor(cCmd, user)],
-					});
-				}
-				// if command requires permissions
-				else if (cCmd.permissions.length > 0) {
-					// fetch prerequisites (guildMember)
-					const guildMember = await getGuildMember(
-						user,
-						message.guild
-					);
+				// get command and store as external variable (if cmd exists)
+				command = cCmd;
+				break;
+			}
+		}
 
-					// get user's current permissions
-					const userPermissions = guildMember.permissions;
-
-					// check if user has all permissions
-					const hasAllPermissions: boolean = cCmd.permissions.every(
-						(perm) => userPermissions.has(perm)
-					);
-
-					// if user has all the permissions required to execute the command, execute it
-					if (hasAllPermissions) {
-						await cCmd.run(client, message, args);
-					}
-					// otherwise, print embed saying that user does not have the required permissions
-					else {
-						// get user's missing permissions (permissions that the user does not have, but the command requires)
-						const missingPermissions: bigint[] =
-							cCmd.permissions.filter(
-								(perm) => !userPermissions.has(perm)
-							);
-
-						// reply with embed saying that user does not have the required permissions
-						await message.reply({
-							embeds: [
-								await inadequatePermissionsEmbedConstructor(
-									cCmd,
-									user,
-									missingPermissions
-								),
-							],
-						});
-					}
-				}
-				// if all checks pass, simply run the command
-				else {
-					// run command
-					await cCmd.run(client, message, args);
-				}
-				// break out of method
+		// if user entered a valid command (command exists)
+		if (command) {
+			// cooldown implementation (if cooldown is active, send returned embed saying that command is on cooldown, and simultaneously break out of function). Otherwise, do nothing and continue with the rest of the code
+			const cooldownEmbed = await commandCooldownHandler(
+				command,
+				user,
+				message.guild
+			);
+			if (cooldownEmbed) {
+				message.reply({ embeds: [cooldownEmbed] });
 				return;
 			}
 		}
 
-		// if command does not exist
-		await message.reply({
-			embeds: [await unknownCommand(user, messageContent)],
-		});
+		// if user entered a valid command (command exists)
+		if (command) {
+			// if command can only be run by owner, and command creator is not the owner
+			if (command.ownerOnly && user.id !== DISCORD_OWNER_ID) {
+				message.reply({
+					embeds: [ownerOnlyEmbedConstructor(command, user)],
+				});
+			}
+			// if command requires permissions
+			else if (command.permissions.length > 0) {
+				// fetch prerequisites (guildMember)
+				const guildMember = await getGuildMember(user, message.guild);
+
+				// get user's current permissions
+				const userPermissions = guildMember.permissions;
+
+				// check if user has all permissions
+				const hasAllPermissions: boolean = command.permissions.every(
+					(perm) => userPermissions.has(perm)
+				);
+
+				// if user has all the permissions required to execute the command, execute it
+				if (hasAllPermissions) {
+					command.run(client, message, args);
+				}
+				// otherwise, print embed saying that user does not have the required permissions
+				else {
+					// get user's missing permissions (permissions that the user does not have, but the command requires)
+					const missingPermissions: bigint[] =
+						command.permissions.filter(
+							(perm) => !userPermissions.has(perm)
+						);
+
+					// reply with embed saying that user does not have the required permissions
+					message.reply({
+						embeds: [
+							inadequatePermissionsEmbedConstructor(
+								command,
+								user,
+								missingPermissions
+							),
+						],
+					});
+				}
+			}
+			// if all checks pass, simply run the command
+			else {
+				// run command
+				command.run(client, message, args);
+			}
+		} else {
+			// if command does not exist
+			message.reply({
+				embeds: [unknownCommand(user, messageContent)],
+			});
+		}
 	} catch (e) {
 		LOG(e);
 	}
